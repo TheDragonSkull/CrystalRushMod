@@ -1,0 +1,46 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.mortar.grinding": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"pestle": {
+					"rotation": {
+						"0.0": {
+							"vector": [-53.80306, -41.75465, 23.95072]
+						},
+						"0.5": {
+							"vector": [-49.95238, -51.28221, 6.1106]
+						},
+						"1.0": {
+							"vector": [-41.78626, -22.31276, 36.78452]
+						},
+						"1.5": {
+							"vector": [-42.57382, -52.21871, 33.38162]
+						},
+						"2.0": {
+							"vector": [-53.80306, -41.75465, 23.95072]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [1, 0, -1]
+						},
+						"1.0": {
+							"vector": [1, 0.5, -1],
+							"easing": "easeInOutBack",
+							"easingArgs": [2]
+						},
+						"2.0": {
+							"vector": [1, 0, -1],
+							"easing": "easeInOutBack",
+							"easingArgs": [2]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
