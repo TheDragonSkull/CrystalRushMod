@@ -44,7 +44,6 @@ public class MortarItem extends BlockItem implements GeoItem {
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState) {
-        tAnimationState.getController().setAnimation(RawAnimation.begin().then("grinding", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 
