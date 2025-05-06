@@ -23,6 +23,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.thedragonskull.crystalmod.item.ModItems;
+import net.thedragonskull.crystalmod.screen.MortarMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -45,6 +46,7 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 77;
+    private ContainerData dataAccess;
 
     public MortarBE(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.MORTAR_BE.get(), pPos, pBlockState);
@@ -72,6 +74,18 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
                 return 2;
             }
         };
+    }
+
+    public boolean isCrafting() {
+        return dataAccess != null && dataAccess.get(0) > 0;
+    }
+
+    public int getProgress() {
+        return dataAccess != null ? dataAccess.get(0) : 0;
+    }
+
+    public void setDataAccess(ContainerData dataAccess) {
+        this.dataAccess = dataAccess;
     }
 
     @Override
@@ -149,11 +163,7 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
         boolean hasCraftingItem = this.itemStackHandler.getStackInSlot(0).getItem() == Items.AMETHYST_SHARD;
         ItemStack result = new ItemStack(Items.GLOWSTONE_DUST); //TODO: cambiar
 
-        return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
-    }
-
-    private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemStackHandler.getStackInSlot(0).isEmpty() || this.itemStackHandler.getStackInSlot(0).is(item);
+        return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount());
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
@@ -184,7 +194,7 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return
+        return new MortarMenu(pContainerId, pPlayerInventory, this, this.data);
     }
 
     @Override

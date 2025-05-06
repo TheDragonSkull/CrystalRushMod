@@ -12,6 +12,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.thedragonskull.crystalmod.block.ModBlocks;
 import net.thedragonskull.crystalmod.block.entity.ModBlockEntities;
 import net.thedragonskull.crystalmod.item.ModItems;
+import net.thedragonskull.crystalmod.screen.ModMenuTypes;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
 
@@ -26,8 +27,9 @@ public class CrystalMod {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
-        GeckoLib.initialize(); //TODO: añadir esto
+        GeckoLib.initialize();
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);

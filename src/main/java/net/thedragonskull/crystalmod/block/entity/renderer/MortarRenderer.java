@@ -13,6 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.thedragonskull.crystalmod.block.entity.MortarBE;
 import net.thedragonskull.crystalmod.block.entity.model.MortarModel;
+import net.thedragonskull.crystalmod.screen.MortarMenu;
+import net.thedragonskull.crystalmod.screen.MortarScreen;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
@@ -43,8 +45,7 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
     public void actuallyRender(PoseStack poseStack, MortarBE animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 
-        MortarBE blockEntity = this.animatable;
-        boolean isGrinding = blockEntity.getBlockState().getValue(GRINDING);
+        boolean isGrinding = animatable.isCrafting();
 
         if (!isGrinding) { //TODO: cambiar por if shard in input slot || "cookingProgress" < 50%
             renderShard(poseStack, bufferSource, packedLight); //TODO: cambiar por lo que haya en el input slot

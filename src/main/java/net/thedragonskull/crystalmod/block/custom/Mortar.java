@@ -69,7 +69,7 @@ public class Mortar extends BaseEntityBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof MortarBE) {
+            if(entity instanceof MortarBE && !pPlayer.isShiftKeyDown()) {
                 NetworkHooks.openScreen(((ServerPlayer)pPlayer), (MortarBE)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
