@@ -47,7 +47,7 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
         boolean isGrinding = blockEntity.getBlockState().getValue(GRINDING);
 
         if (!isGrinding) { //TODO: cambiar por if shard in input slot || "cookingProgress" < 50%
-            renderShard(poseStack, bufferSource, packedLight);
+            renderShard(poseStack, bufferSource, packedLight); //TODO: cambiar por lo que haya en el input slot
         }
     }
 
