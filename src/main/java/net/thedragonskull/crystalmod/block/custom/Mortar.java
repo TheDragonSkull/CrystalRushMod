@@ -24,6 +24,8 @@ import net.minecraftforge.network.NetworkHooks;
 import net.thedragonskull.crystalmod.block.entity.ModBlockEntities;
 import net.thedragonskull.crystalmod.block.entity.MortarBE;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.network.GeckoLibNetwork;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class Mortar extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -86,6 +88,8 @@ public class Mortar extends BaseEntityBlock {
                     mortarBE.setChanged();
                     level.sendBlockUpdated(pos, state, state, 3);
                 }
+
+                mortarBE.triggerAnim("mortar_controller", "grinding");
 
                 return InteractionResult.SUCCESS;
             }

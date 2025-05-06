@@ -3,6 +3,7 @@ package net.thedragonskull.crystalmod.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -25,16 +26,20 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.PacketDistributor;
 import net.thedragonskull.crystalmod.item.ModItems;
 import net.thedragonskull.crystalmod.screen.MortarMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.network.GeckoLibNetwork;
+import software.bernie.geckolib.network.packet.BlockEntityAnimTriggerPacket;
 import software.bernie.geckolib.util.RenderUtils;
 
 import static net.thedragonskull.crystalmod.block.custom.Mortar.GRINDING;
@@ -47,9 +52,11 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
-            if (slot == 0) {
-                resetProgress();
-                setChanged();
+            resetProgress();
+            setChanged();
+
+            if (!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
     };
@@ -60,7 +67,6 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     private int progress = 0;
     private int maxProgress = 77;
     private ContainerData dataAccess;
-    private boolean isBeingUsed = false;
 
     public MortarBE(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.MORTAR_BE.get(), pPos, pBlockState);
@@ -88,17 +94,6 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
                 return 2;
             }
         };
-    }
-
-    public void setBeingUsed(boolean value) {
-        this.isBeingUsed = value;
-        if (!level.isClientSide) {
-            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-        }
-    }
-
-    public boolean isBeingUsed() {
-        return this.isBeingUsed;
     }
 
     public boolean isCrafting() {
@@ -154,29 +149,8 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable>PlayState predicate(AnimationState<T> tAnimationState) {
-
-        if (this.isBeingUsed()) {
-            tAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.mortar.grinding", Animation.LoopType.LOOP));
-            return PlayState.CONTINUE;
-        } else {
-            return PlayState.STOP;
-        }
-
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public @NotNull CompoundTag getUpdateTag() {
-        return saveWithoutMetadata();
+        controllers.add(new AnimationController<>(this, "mortar_controller", state -> PlayState.STOP)
+                .triggerableAnim("grinding", RawAnimation.begin().then("animation.mortar.grinding", Animation.LoopType.PLAY_ONCE)));
     }
 
     @Override
@@ -185,13 +159,6 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     }
 
     public void tick(Level pLevel1, BlockPos pPos, BlockState pState1) {
-        if (this.isBeingUsed) {
-            this.isBeingUsed = false;
-            if (!level.isClientSide) {
-                level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-            }
-        }
-
     }
 
     public void resetProgress() {
@@ -257,4 +224,25 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
         return cache;
     }
 
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        if (pkt.getTag() != null)
+            load(pkt.getTag());
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        load(tag);
+    }
 }

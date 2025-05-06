@@ -13,13 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.thedragonskull.crystalmod.block.entity.MortarBE;
 import net.thedragonskull.crystalmod.block.entity.model.MortarModel;
-import net.thedragonskull.crystalmod.screen.MortarMenu;
-import net.thedragonskull.crystalmod.screen.MortarScreen;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
-
-import static net.thedragonskull.crystalmod.block.custom.Mortar.GRINDING;
 
 public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
 
@@ -34,7 +30,7 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
         ItemStack slotStack = animatable.getSlotItem();
 
         if ("fill".equals(bone.getName())) {
-            if (!slotStack.is(Items.GLOWSTONE_DUST)) {
+            if (!slotStack.is(Items.GLOWSTONE_DUST)) { //todo: cambiar
                 return;
             }
         }
@@ -45,17 +41,15 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
     @Override
     public void actuallyRender(PoseStack poseStack, MortarBE animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
-        int progress = animatable.getProgress();
-        int maxProgress = animatable.getMaxProgress();
         ItemStack slotStack = animatable.getSlotItem();
 
-        if (!slotStack.isEmpty() && (progress != maxProgress)) {
-            renderShard(poseStack, bufferSource, packedLight, slotStack);
+        if (!slotStack.isEmpty() && !animatable.hasProgressFinished()) {
+            renderStack(poseStack, bufferSource, packedLight, slotStack);
         }
+
     }
 
-    private void renderShard(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, ItemStack stack) {
-
+    private void renderStack(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, ItemStack stack) {
         poseStack.pushPose();
 
         poseStack.translate(0, 0.1, 0);
