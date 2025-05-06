@@ -31,11 +31,12 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
     public void renderCubesOfBone(PoseStack poseStack, GeoBone bone, VertexConsumer buffer,
                                   int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 
-        MortarBE blockEntity = this.animatable;
-        boolean isGrinding = blockEntity.getBlockState().getValue(GRINDING);
+        ItemStack slotStack = animatable.getSlotItem();
 
-        if ("fill".equals(bone.getName()) && !isGrinding) {
-            return;
+        if ("fill".equals(bone.getName())) {
+            if (!slotStack.is(Items.GLOWSTONE_DUST)) {
+                return;
+            }
         }
 
         super.renderCubesOfBone(poseStack, bone, buffer, packedLight, packedOverlay, red, green, blue, alpha);
@@ -44,16 +45,16 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
     @Override
     public void actuallyRender(PoseStack poseStack, MortarBE animatable, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.actuallyRender(poseStack, animatable, model, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+        int progress = animatable.getProgress();
+        int maxProgress = animatable.getMaxProgress();
+        ItemStack slotStack = animatable.getSlotItem();
 
-        boolean isGrinding = animatable.isCrafting();
-
-        if (!isGrinding) { //TODO: cambiar por if shard in input slot || "cookingProgress" < 50%
-            renderShard(poseStack, bufferSource, packedLight); //TODO: cambiar por lo que haya en el input slot
+        if (!slotStack.isEmpty() && (progress != maxProgress)) {
+            renderShard(poseStack, bufferSource, packedLight, slotStack);
         }
     }
 
-    private void renderShard(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-        ItemStack shard = new ItemStack(Items.AMETHYST_SHARD);
+    private void renderShard(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, ItemStack stack) {
 
         poseStack.pushPose();
 
@@ -62,7 +63,7 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
         poseStack.mulPose(Axis.XP.rotationDegrees(90));
 
         Minecraft.getInstance().getItemRenderer().renderStatic(
-                shard,
+                stack,
                 ItemDisplayContext.FIXED,
                 packedLight,
                 OverlayTexture.NO_OVERLAY,

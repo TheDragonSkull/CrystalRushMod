@@ -4,6 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -40,13 +43,24 @@ import static net.thedragonskull.crystalmod.block.custom.Mortar.GRINDING;
 public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvider {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    private final ItemStackHandler itemStackHandler = new ItemStackHandler(1);
+    private final ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
+            if (slot == 0) {
+                resetProgress();
+                setChanged();
+            }
+        }
+    };
+
     private LazyOptional<IItemHandler> lazyItemStackHandler = LazyOptional.empty();
 
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 77;
     private ContainerData dataAccess;
+    private boolean isBeingUsed = false;
 
     public MortarBE(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.MORTAR_BE.get(), pPos, pBlockState);
@@ -76,6 +90,17 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
         };
     }
 
+    public void setBeingUsed(boolean value) {
+        this.isBeingUsed = value;
+        if (!level.isClientSide) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+    }
+
+    public boolean isBeingUsed() {
+        return this.isBeingUsed;
+    }
+
     public boolean isCrafting() {
         return dataAccess != null && dataAccess.get(0) > 0;
     }
@@ -84,8 +109,16 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
         return dataAccess != null ? dataAccess.get(0) : 0;
     }
 
+    public int getMaxProgress() {
+        return dataAccess != null ? dataAccess.get(1) : 0;
+    }
+
     public void setDataAccess(ContainerData dataAccess) {
         this.dataAccess = dataAccess;
+    }
+
+    public ItemStack getSlotItem() {
+        return this.itemStackHandler.getStackInSlot(0);
     }
 
     @Override
@@ -125,9 +158,8 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     }
 
     private <T extends GeoAnimatable>PlayState predicate(AnimationState<T> tAnimationState) {
-        boolean isCrushing = this.getBlockState().getValue(GRINDING);
 
-        if (isCrushing) {
+        if (this.isBeingUsed()) {
             tAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.mortar.grinding", Animation.LoopType.LOOP));
             return PlayState.CONTINUE;
         } else {
@@ -136,41 +168,48 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
 
     }
 
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
+    }
+
     @Override
     public double getTick(Object blockEntity) {
         return RenderUtils.getCurrentTick();
     }
 
     public void tick(Level pLevel1, BlockPos pPos, BlockState pState1) {
-        if (hasRecipe()) {
-            increaseCraftingProgress();
-            setChanged(pLevel1, pPos, pState1);
-
-            if (hasProgressFinished()) {
-                craftItem();
-                resetProgress();
+        if (this.isBeingUsed) {
+            this.isBeingUsed = false;
+            if (!level.isClientSide) {
+                level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
             }
-        } else {
-            resetProgress();
         }
+
     }
 
-    private void resetProgress() {
+    public void resetProgress() {
         progress = 0;
     }
 
-    private boolean hasRecipe() {
+    public boolean hasRecipe() {
         boolean hasCraftingItem = this.itemStackHandler.getStackInSlot(0).getItem() == Items.AMETHYST_SHARD;
         ItemStack result = new ItemStack(Items.GLOWSTONE_DUST); //TODO: cambiar
 
         return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount());
     }
 
-    private boolean canInsertAmountIntoOutputSlot(int count) {
+    public boolean canInsertAmountIntoOutputSlot(int count) {
         return this.itemStackHandler.getStackInSlot(0).getCount() + count <= this.itemStackHandler.getStackInSlot(0).getMaxStackSize();
     }
 
-    private void craftItem() {
+    public void craftItem() {
         ItemStack result = new ItemStack(Items.GLOWSTONE_DUST, 1);  //TODO: cambiar
         this.itemStackHandler.extractItem(0, 1, false);
 
@@ -178,11 +217,11 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
                 this.itemStackHandler.getStackInSlot(0).getCount() + result.getCount()));
     }
 
-    private boolean hasProgressFinished() {
+    public boolean hasProgressFinished() {
         return progress >= maxProgress;
     }
 
-    private void increaseCraftingProgress() {
+    public void increaseCraftingProgress() {
         progress++;
     }
 

@@ -51,7 +51,7 @@ public class MortarMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+    public ItemStack quickMoveStack(Player pPlayer, int pIndex) { //todo: arreglar esto
         ItemStack returnStack = ItemStack.EMPTY;
         Slot fromSlot = this.slots.get(pIndex);
 

@@ -66,18 +66,37 @@ public class Mortar extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide()) {
-            BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof MortarBE && !pPlayer.isShiftKeyDown()) {
-                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (MortarBE)entity, pPos);
-            } else {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!level.isClientSide()) {
+            BlockEntity entity = level.getBlockEntity(pos);
+
+            if (!(entity instanceof MortarBE mortarBE)) {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
+
+            if (player.isShiftKeyDown() && player.getMainHandItem().isEmpty()) {
+                if (mortarBE.hasRecipe()) {
+                    mortarBE.increaseCraftingProgress();
+
+                    if (mortarBE.hasProgressFinished()) {
+                        mortarBE.craftItem();
+                        mortarBE.resetProgress();
+                    }
+
+                    mortarBE.setChanged();
+                    level.sendBlockUpdated(pos, state, state, 3);
+                }
+
+                return InteractionResult.SUCCESS;
+            }
+
+            NetworkHooks.openScreen((ServerPlayer) player, mortarBE, pos);
+            return InteractionResult.CONSUME;
         }
 
-        return InteractionResult.sidedSuccess(pLevel.isClientSide());
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
+
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
