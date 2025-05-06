@@ -1,4 +1,4 @@
-package net.thedragonskull.testmod.block;
+package net.thedragonskull.crystalmod.block;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -9,15 +9,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.thedragonskull.testmod.TestMod;
-import net.thedragonskull.testmod.block.custom.Mortar;
-import net.thedragonskull.testmod.item.ModItems;
+import net.thedragonskull.crystalmod.CrystalMod;
+import net.thedragonskull.crystalmod.block.custom.Mortar;
+import net.thedragonskull.crystalmod.item.ModItems;
 
 import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(ForgeRegistries.BLOCKS, TestMod.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.BLOCKS, CrystalMod.MOD_ID);
 
     public static final RegistryObject<Block> MORTAR = BLOCKS.register("mortar",
             () -> new Mortar(BlockBehaviour.Properties.copy(Blocks.DIORITE).strength(1.5F, 6.0F)

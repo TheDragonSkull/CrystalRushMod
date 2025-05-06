@@ -1,10 +1,10 @@
-package net.thedragonskull.testmod.item.custom;
+package net.thedragonskull.crystalmod.item.custom;
 
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.thedragonskull.testmod.item.renderer.MortarItemRenderer;
+import net.thedragonskull.crystalmod.item.renderer.MortarItemRenderer;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;

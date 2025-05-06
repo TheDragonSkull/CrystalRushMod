@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "testmod:block/mortar" },
-    "facing=east": { "model": "testmod:block/mortar", "y": 90 },
-    "facing=south": { "model": "testmod:block/mortar", "y": 180 },
-    "facing=west": { "model": "testmod:block/mortar", "y": 270 }
-  }
-}

@@ -75,6 +75,6 @@
     }
   },
   "textures": {
-    "particle": "testmod:block/mortar_empty"
+    "particle": "crystalmod:block/mortar_empty"
   }
 }

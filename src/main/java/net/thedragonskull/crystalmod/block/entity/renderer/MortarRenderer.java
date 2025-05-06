@@ -1,4 +1,4 @@
-package net.thedragonskull.testmod.block.entity.renderer;
+package net.thedragonskull.crystalmod.block.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -11,13 +11,13 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.thedragonskull.testmod.block.entity.MortarBE;
-import net.thedragonskull.testmod.block.entity.model.MortarModel;
+import net.thedragonskull.crystalmod.block.entity.MortarBE;
+import net.thedragonskull.crystalmod.block.entity.model.MortarModel;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
-import static net.thedragonskull.testmod.block.custom.Mortar.GRINDING;
+import static net.thedragonskull.crystalmod.block.custom.Mortar.GRINDING;
 
 public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
 

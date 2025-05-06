@@ -1,10 +1,9 @@
-package net.thedragonskull.testmod.item.renderer;
+package net.thedragonskull.crystalmod.item.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.thedragonskull.testmod.block.entity.MortarBE;
-import net.thedragonskull.testmod.item.custom.MortarItem;
-import net.thedragonskull.testmod.item.model.MortarItemModel;
+import net.thedragonskull.crystalmod.item.custom.MortarItem;
+import net.thedragonskull.crystalmod.item.model.MortarItemModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 

@@ -1,4 +1,4 @@
-package net.thedragonskull.testmod.block.entity;
+package net.thedragonskull.crystalmod.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -11,7 +11,7 @@ import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.RenderUtils;
 
-import static net.thedragonskull.testmod.block.custom.Mortar.GRINDING;
+import static net.thedragonskull.crystalmod.block.custom.Mortar.GRINDING;
 
 
 public class MortarBE extends BlockEntity implements GeoBlockEntity {

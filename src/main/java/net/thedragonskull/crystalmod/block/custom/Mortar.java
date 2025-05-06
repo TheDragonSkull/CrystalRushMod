@@ -1,4 +1,4 @@
-package net.thedragonskull.testmod.block.custom;
+package net.thedragonskull.crystalmod.block.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.thedragonskull.testmod.block.entity.MortarBE;
+import net.thedragonskull.crystalmod.block.entity.MortarBE;
 import org.jetbrains.annotations.Nullable;
 
 public class Mortar extends BaseEntityBlock {
