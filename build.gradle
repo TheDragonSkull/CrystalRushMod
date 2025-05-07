@@ -154,6 +154,12 @@ mixin {
     config('crystalmod.mixin.json')
 }
 
+sourceSets {
+    main {
+        ext.refMap = "crystalmod.mixin.json"
+    }
+}
+
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
 // When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.

@@ -63,6 +63,11 @@ public class MortarRecipe implements Recipe<SimpleContainer> {
         return Type.INSTANCE;
     }
 
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return inputItems;
+    }
+
     public static class Type implements RecipeType<MortarRecipe> {
         public static final Type INSTANCE = new Type();
         public static final String ID = "mortar_grinding";
@@ -77,36 +82,34 @@ public class MortarRecipe implements Recipe<SimpleContainer> {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
-
-            for(int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
+            NonNullList<Ingredient> inputs = NonNullList.create();
+            for (int i = 0; i < ingredients.size(); i++) {
+                inputs.add(Ingredient.fromJson(ingredients.get(i)));
             }
 
             return new MortarRecipe(inputs, output, pRecipeId);
         }
 
         @Override
-        public @Nullable MortarRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
-
-            for(int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
+        public void toNetwork(FriendlyByteBuf buffer, MortarRecipe recipe) {
+            NonNullList<Ingredient> ingredients = recipe.getIngredients();
+            buffer.writeInt(ingredients.size());
+            for (Ingredient ing : ingredients) {
+                ing.toNetwork(buffer);
             }
-
-            ItemStack output = pBuffer.readItem();
-            return new MortarRecipe(inputs, output, pRecipeId);
+            buffer.writeItemStack(recipe.getResultItem(null), false);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, MortarRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
+        public MortarRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
+            int size = buffer.readInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+            for (int i = 0; i < size; i++) {
+                inputs.set(i, Ingredient.fromNetwork(buffer));
             }
-
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            ItemStack output = buffer.readItem();
+            return new MortarRecipe(inputs, output, id);
         }
+
     }
 }
