@@ -17,6 +17,9 @@ public class ModItems {
     public static final RegistryObject<Item> MORTAR_ITEM = ITEMS.register("mortar",
             () -> new MortarItem(ModBlocks.MORTAR.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> RAW_AMETHYST_POWDER = ITEMS.register("raw_amethyst_powder",
+            () -> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

@@ -28,6 +28,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.thedragonskull.crystalmod.item.ModItems;
 import net.thedragonskull.crystalmod.recipe.MortarRecipe;
 import net.thedragonskull.crystalmod.screen.MortarMenu;
 import net.thedragonskull.crystalmod.sound.ModSounds;
@@ -200,7 +201,7 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
             useCooldownTicks--;
 
             if (this.level.getGameTime() % 20 == 0) {
-                if (hasRecipe()) { //todo hasRecipe() || dusts tag
+                if (hasRecipe() || itemStackHandler.getStackInSlot(0).is(ModItems.RAW_AMETHYST_POWDER.get())) { //todo hasRecipe() || powders tag
                     this.level.playSound(null, this.worldPosition, ModSounds.GRINDING.get(), SoundSource.BLOCKS,
                             1.0F, 0.9F + (this.level.random.nextFloat() * 0.2F));
                 } else {

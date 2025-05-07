@@ -90,7 +90,6 @@ public class Mortar extends BaseEntityBlock {
                 }
 
                 mortarBE.triggerUseAnimation();
-                //todo play grind sound
                 mortarBE.useCooldownTicks = 10;
 
                 return InteractionResult.SUCCESS;
