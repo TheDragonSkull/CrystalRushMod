@@ -8,6 +8,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -27,6 +30,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.thedragonskull.crystalmod.recipe.MortarRecipe;
 import net.thedragonskull.crystalmod.screen.MortarMenu;
+import net.thedragonskull.crystalmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -194,9 +198,19 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     public void tick(Level pLevel1, BlockPos pPos, BlockState pState1) {
         if (useCooldownTicks > 0) {
             useCooldownTicks--;
+
+            if (this.level.getGameTime() % 20 == 0) {
+                if (hasRecipe()) { //todo hasRecipe() || dusts tag
+                    this.level.playSound(null, this.worldPosition, ModSounds.GRINDING.get(), SoundSource.BLOCKS,
+                            1.0F, 0.9F + (this.level.random.nextFloat() * 0.2F));
+                } else {
+                    this.level.playSound(null, this.worldPosition, ModSounds.EMPTY_GRINDING.get(), SoundSource.BLOCKS,
+                            1.0F, 0.9F + (this.level.random.nextFloat() * 0.2F));
+                }
+            }
+
         } else {
             stopTriggeredAnimation("mortar_controller", "grinding");
-            //todo stop sound
         }
     }
 

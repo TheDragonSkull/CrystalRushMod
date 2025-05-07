@@ -1,0 +1,14 @@
+{
+  "grinding": {
+    "subtitle": "sounds.crystalmod.grinding",
+    "sounds": [
+      "crystalmod:grinding"
+    ]
+  },
+  "empty_grinding": {
+    "subtitle": "sounds.crystalmod.empty_grinding",
+    "sounds": [
+      "crystalmod:empty_grinding"
+    ]
+  }
+}
