@@ -25,6 +25,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.thedragonskull.crystalmod.recipe.MortarRecipe;
 import net.thedragonskull.crystalmod.screen.MortarMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,6 +37,8 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtils;
+
+import java.util.Optional;
 
 
 public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvider {
@@ -193,6 +196,7 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
             useCooldownTicks--;
         } else {
             stopTriggeredAnimation("mortar_controller", "grinding");
+            //todo stop sound
         }
     }
 
@@ -201,12 +205,36 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     }
 
     public boolean hasRecipe() {
-        ItemStack input = itemStackHandler.getStackInSlot(0);
-        return input.getItem() == Items.AMETHYST_SHARD && input.getCount() == 1; // TODO: cambiar por tag/list
+        Optional<MortarRecipe> recipe = getCurrentRecipe();
+
+        if (recipe.isEmpty()) return false;
+
+        ItemStack stackInSlot = itemStackHandler.getStackInSlot(0);
+        ItemStack result = recipe.get().getResultItem(level.registryAccess());
+
+        if (ItemStack.isSameItemSameTags(stackInSlot, result)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    private Optional<MortarRecipe> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemStackHandler.getSlots());
+
+        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemStackHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(MortarRecipe.Type.INSTANCE, inventory, level);
     }
 
     public void craftItem() {
-        itemStackHandler.setStackInSlot(0, new ItemStack(Items.GLOWSTONE_DUST, 1)); // TODO: cambiar
+        Optional<MortarRecipe> recipe = getCurrentRecipe();
+
+        ItemStack result = recipe.get().getResultItem(level.registryAccess()).copy();
+        itemStackHandler.setStackInSlot(0, result);
     }
 
     public boolean hasProgressFinished() {

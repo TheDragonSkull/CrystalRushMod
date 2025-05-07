@@ -12,6 +12,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.thedragonskull.crystalmod.block.ModBlocks;
 import net.thedragonskull.crystalmod.block.entity.ModBlockEntities;
 import net.thedragonskull.crystalmod.item.ModItems;
+import net.thedragonskull.crystalmod.recipe.ModRecipes;
 import net.thedragonskull.crystalmod.screen.ModMenuTypes;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
@@ -28,6 +29,7 @@ public class CrystalMod {
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
         GeckoLib.initialize();
 

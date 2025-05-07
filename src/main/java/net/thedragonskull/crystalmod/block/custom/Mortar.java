@@ -30,17 +30,15 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class Mortar extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty GRINDING = BooleanProperty.create("grinding");  //TODO: GRINDING = "cookingProgress"
     public static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 6, 11);
 
     public Mortar(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(GRINDING, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(GRINDING, FACING);
+        pBuilder.add(FACING);
     }
 
     @Override
@@ -92,6 +90,7 @@ public class Mortar extends BaseEntityBlock {
                 }
 
                 mortarBE.triggerUseAnimation();
+                //todo play grind sound
                 mortarBE.useCooldownTicks = 10;
 
                 return InteractionResult.SUCCESS;

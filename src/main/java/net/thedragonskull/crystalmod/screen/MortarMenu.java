@@ -65,12 +65,19 @@ public class MortarMenu extends AbstractContainerMenu {
         ItemStack copyFromStack = fromStack.copy();
 
         if (index < 36) {
-            if (!moveItemStackTo(fromStack, 36, 37, false))
+            if (!moveItemStackTo(fromStack, 36, 37, false)) {
                 return ItemStack.EMPTY;
+            }
+            mortarBE.resetProgress();
+            //todo play put sound
 
         } else if (index == 36) {
-            if (!moveItemStackTo(fromStack, 0, 36, false))
+            if (!moveItemStackTo(fromStack, 0, 36, false)) {
                 return ItemStack.EMPTY;
+            }
+            mortarBE.resetProgress();
+            //todo play take sound
+
         } else {
             System.err.println("Invalid slot index: " + index);
             return ItemStack.EMPTY;
