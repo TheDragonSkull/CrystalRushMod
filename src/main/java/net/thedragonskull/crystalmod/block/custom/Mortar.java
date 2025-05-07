@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -77,6 +78,7 @@ public class Mortar extends BaseEntityBlock {
             }
 
             if (player.isShiftKeyDown() && player.getMainHandItem().isEmpty()) {
+
                 if (mortarBE.hasRecipe()) {
                     mortarBE.increaseCraftingProgress();
 
@@ -89,7 +91,8 @@ public class Mortar extends BaseEntityBlock {
                     level.sendBlockUpdated(pos, state, state, 3);
                 }
 
-                mortarBE.triggerAnim("mortar_controller", "grinding");
+                mortarBE.triggerUseAnimation();
+                mortarBE.useCooldownTicks = 6;
 
                 return InteractionResult.SUCCESS;
             }

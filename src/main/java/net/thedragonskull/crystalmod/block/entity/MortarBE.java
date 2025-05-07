@@ -15,7 +15,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -26,27 +25,24 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.network.PacketDistributor;
-import net.thedragonskull.crystalmod.item.ModItems;
 import net.thedragonskull.crystalmod.screen.MortarMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.network.GeckoLibNetwork;
-import software.bernie.geckolib.network.packet.BlockEntityAnimTriggerPacket;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtils;
-
-import static net.thedragonskull.crystalmod.block.custom.Mortar.GRINDING;
 
 
 public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvider {
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+    private AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    protected static final RawAnimation GRINDING = RawAnimation.begin().thenLoop("animation.mortar.grinding");
+    public int useCooldownTicks = 0;
 
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
         @Override
@@ -179,8 +175,12 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "mortar_controller", state -> PlayState.STOP)
-                .triggerableAnim("grinding", RawAnimation.begin().then("animation.mortar.grinding", Animation.LoopType.PLAY_ONCE)));
+        controllers.add(new AnimationController<>(this, "mortar_controller", state -> PlayState.CONTINUE)
+        .triggerableAnim("grinding", GRINDING));
+    }
+
+    public void triggerUseAnimation(){
+        triggerAnim("mortar_controller", "grinding");
     }
 
     @Override
@@ -189,6 +189,11 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     }
 
     public void tick(Level pLevel1, BlockPos pPos, BlockState pState1) {
+        if (useCooldownTicks > 0) {
+            useCooldownTicks--;
+        } else {
+            stopTriggeredAnimation("mortar_controller", "grinding");
+        }
     }
 
     public void resetProgress() {
