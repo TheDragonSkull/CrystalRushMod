@@ -51,30 +51,32 @@ public class MortarMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player pPlayer, int pIndex) { //todo: arreglar esto
-        ItemStack returnStack = ItemStack.EMPTY;
-        Slot fromSlot = this.slots.get(pIndex);
+    public ItemStack quickMoveStack(Player player, int index) {
+        Slot fromSlot = getSlot(index);
+        ItemStack fromStack = fromSlot.getItem();
 
-        if (fromSlot.hasItem()) {
-            ItemStack slotStack = fromSlot.getItem();
-            returnStack = slotStack.copy();
+        if (fromStack.getCount() <= 0)
+            fromSlot.set(ItemStack.EMPTY);
 
-            if (pIndex < 1) { //In the expositor inventory
-                if (!this.moveItemStackTo(slotStack, 1, this.slots.size(), false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (!this.moveItemStackTo(slotStack, 0, 1, false)) { //In the hotbar/player inv
+        if (!fromSlot.hasItem())
+            return ItemStack.EMPTY;
+
+        ItemStack copyFromStack = fromStack.copy();
+
+        if (index < 36) {
+            if (!moveItemStackTo(fromStack, 36, 37, false))
                 return ItemStack.EMPTY;
-            }
 
-            if (slotStack.isEmpty()) {
-                fromSlot.setByPlayer(ItemStack.EMPTY);
-            } else {
-                fromSlot.setChanged();
-            }
-
+        } else if (index == 36) {
+            if (!moveItemStackTo(fromStack, 0, 36, false))
+                return ItemStack.EMPTY;
+        } else {
+            System.err.println("Invalid slot index: " + index);
+            return ItemStack.EMPTY;
         }
-        return returnStack;
+
+        fromSlot.onTake(player, fromStack);
+        return copyFromStack;
     }
 
     @Override

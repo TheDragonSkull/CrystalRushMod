@@ -59,6 +59,36 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if (!getStackInSlot(slot).isEmpty()) {
+                return stack;
+            }
+
+            if (stack.getCount() > 1) {
+                ItemStack remainder = stack.copy();
+                remainder.setCount(stack.getCount() - 1);
+
+                if (!simulate) {
+                    ItemStack oneItem = stack.copy();
+                    oneItem.setCount(1);
+                    setStackInSlot(slot, oneItem);
+                }
+
+                return remainder;
+            } else {
+                if (!simulate) {
+                    setStackInSlot(slot, stack.copy());
+                }
+                return ItemStack.EMPTY;
+            }
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
     };
 
     private LazyOptional<IItemHandler> lazyItemStackHandler = LazyOptional.empty();
@@ -166,22 +196,12 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
     }
 
     public boolean hasRecipe() {
-        boolean hasCraftingItem = this.itemStackHandler.getStackInSlot(0).getItem() == Items.AMETHYST_SHARD;
-        ItemStack result = new ItemStack(Items.GLOWSTONE_DUST); //TODO: cambiar
-
-        return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount());
-    }
-
-    public boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.itemStackHandler.getStackInSlot(0).getCount() + count <= this.itemStackHandler.getStackInSlot(0).getMaxStackSize();
+        ItemStack input = itemStackHandler.getStackInSlot(0);
+        return input.getItem() == Items.AMETHYST_SHARD && input.getCount() == 1; // TODO: cambiar por tag/list
     }
 
     public void craftItem() {
-        ItemStack result = new ItemStack(Items.GLOWSTONE_DUST, 1);  //TODO: cambiar
-        this.itemStackHandler.extractItem(0, 1, false);
-
-        this.itemStackHandler.setStackInSlot(0, new ItemStack(result.getItem(),
-                this.itemStackHandler.getStackInSlot(0).getCount() + result.getCount()));
+        itemStackHandler.setStackInSlot(0, new ItemStack(Items.GLOWSTONE_DUST, 1)); // TODO: cambiar
     }
 
     public boolean hasProgressFinished() {
