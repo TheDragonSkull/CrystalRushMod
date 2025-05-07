@@ -39,7 +39,7 @@ public class MortarScreen extends AbstractContainerScreen<MortarMenu> {
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + 101, y + 58, 0, 0, 12, menu.getScaledProgress());
+            guiGraphics.blit(TEXTURE, x + 101, y + 58, 176, 0, 12, menu.getScaledProgress());
         }
     }
 

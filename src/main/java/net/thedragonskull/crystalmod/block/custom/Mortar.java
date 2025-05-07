@@ -92,7 +92,7 @@ public class Mortar extends BaseEntityBlock {
                 }
 
                 mortarBE.triggerUseAnimation();
-                mortarBE.useCooldownTicks = 6;
+                mortarBE.useCooldownTicks = 10;
 
                 return InteractionResult.SUCCESS;
             }
