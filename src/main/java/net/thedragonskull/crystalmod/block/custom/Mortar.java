@@ -6,6 +6,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -24,9 +25,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import net.thedragonskull.crystalmod.block.entity.ModBlockEntities;
 import net.thedragonskull.crystalmod.block.entity.MortarBE;
+import net.thedragonskull.crystalmod.item.ModItems;
+import net.thedragonskull.crystalmod.recipe.MortarRecipe;
+import net.thedragonskull.crystalmod.util.MortarUtil;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.network.GeckoLibNetwork;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.Optional;
 
 public class Mortar extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -70,29 +76,31 @@ public class Mortar extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
+            ItemStack heldItem = player.getMainHandItem();
 
             if (!(entity instanceof MortarBE mortarBE)) {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
 
-            if (player.isShiftKeyDown() && player.getMainHandItem().isEmpty()) {
+            if (player.isCrouching()) {
+                if (player.getMainHandItem().isEmpty()) {
+                    if (mortarBE.hasRecipe()) {
+                        mortarBE.increaseCraftingProgress();
 
-                if (mortarBE.hasRecipe()) {
-                    mortarBE.increaseCraftingProgress();
+                        if (mortarBE.hasProgressFinished()) {
+                            mortarBE.craftItem();
+                            mortarBE.resetProgress();
+                        }
 
-                    if (mortarBE.hasProgressFinished()) {
-                        mortarBE.craftItem();
-                        mortarBE.resetProgress();
+                        mortarBE.setChanged();
+                        level.sendBlockUpdated(pos, state, state, 3);
                     }
 
-                    mortarBE.setChanged();
-                    level.sendBlockUpdated(pos, state, state, 3);
+                    mortarBE.triggerUseAnimation();
+                    mortarBE.useCooldownTicks = 10;
+
+                    return InteractionResult.SUCCESS;
                 }
-
-                mortarBE.triggerUseAnimation();
-                mortarBE.useCooldownTicks = 10;
-
-                return InteractionResult.SUCCESS;
             }
 
             NetworkHooks.openScreen((ServerPlayer) player, mortarBE, pos);

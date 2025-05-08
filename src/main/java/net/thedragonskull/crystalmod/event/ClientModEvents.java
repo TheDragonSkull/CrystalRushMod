@@ -21,4 +21,5 @@ public class ClientModEvents {
 
         MenuScreens.register(ModMenuTypes.MORTAR_MENU.get(), MortarScreen::new);
     }
+
 }

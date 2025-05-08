@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.thedragonskull.crystalmod.block.entity.MortarBE;
 import net.thedragonskull.crystalmod.block.entity.model.MortarModel;
 import net.thedragonskull.crystalmod.item.ModItems;
+import net.thedragonskull.crystalmod.util.ModTags;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
@@ -33,7 +34,7 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
         ItemStack slotStack = animatable.getSlotItem();
 
         if ("fill".equals(bone.getName())) {
-            if (!slotStack.is(ModItems.RAW_AMETHYST_POWDER.get())) { //todo: cambiar por powders tag
+            if (!slotStack.is(ModTags.Items.RAW_POWDERS)) {
                 return;
             }
         }

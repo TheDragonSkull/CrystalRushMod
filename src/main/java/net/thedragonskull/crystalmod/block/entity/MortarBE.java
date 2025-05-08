@@ -32,6 +32,7 @@ import net.thedragonskull.crystalmod.item.ModItems;
 import net.thedragonskull.crystalmod.recipe.MortarRecipe;
 import net.thedragonskull.crystalmod.screen.MortarMenu;
 import net.thedragonskull.crystalmod.sound.ModSounds;
+import net.thedragonskull.crystalmod.util.ModTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -150,6 +151,12 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
         return this.itemStackHandler.getStackInSlot(0);
     }
 
+    public void setItem(int slot, ItemStack stack) {
+        this.itemStackHandler.setStackInSlot(slot, stack);
+        setChanged();
+        level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+    }
+
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
@@ -201,7 +208,7 @@ public class MortarBE extends BlockEntity implements GeoBlockEntity, MenuProvide
             useCooldownTicks--;
 
             if (this.level.getGameTime() % 20 == 0) {
-                if (hasRecipe() || itemStackHandler.getStackInSlot(0).is(ModItems.RAW_AMETHYST_POWDER.get())) { //todo hasRecipe() || powders tag
+                if (hasRecipe() || itemStackHandler.getStackInSlot(0).is(ModTags.Items.RAW_POWDERS)) {
                     this.level.playSound(null, this.worldPosition, ModSounds.GRINDING.get(), SoundSource.BLOCKS,
                             1.0F, 0.9F + (this.level.random.nextFloat() * 0.2F));
                 } else {
