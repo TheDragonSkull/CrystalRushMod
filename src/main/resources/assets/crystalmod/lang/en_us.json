@@ -7,6 +7,9 @@
   "block.crystalmod.cavansite_block": "Cavansite Block",
   "block.crystalmod.budding_cavansite": "Budding Cavansite",
   "block.crystalmod.cavansite_cluster": "Cavansite Cluster",
+  "block.crystalmod.small_cavansite_bud": "Small Cavansite Bud",
+  "block.crystalmod.medium_cavansite_bud": "Medium Cavansite Bud",
+  "block.crystalmod.large_cavansite_bud": "Large Cavansite Bud",
 
   "creativetab.crystal_tab": "Crystal Rush"
 }

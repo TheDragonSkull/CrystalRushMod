@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "crystalmod:block/budding_cavansite"
+    "all": "crystalmod:block/cavansite/budding_cavansite"
   }
 }

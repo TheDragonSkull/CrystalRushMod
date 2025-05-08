@@ -27,6 +27,9 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.CAVANSITE_BLOCK.get());
                         pOutput.accept(ModBlocks.BUDDING_CAVANSITE.get());
 
+                        pOutput.accept(ModBlocks.SMALL_CAVANSITE_BUD.get());
+                        pOutput.accept(ModBlocks.MEDIUM_CAVANSITE_BUD.get());
+                        pOutput.accept(ModBlocks.LARGE_CAVANSITE_BUD.get());
                         pOutput.accept(ModBlocks.CAVANSITE_CLUSTER.get());
 
                     })

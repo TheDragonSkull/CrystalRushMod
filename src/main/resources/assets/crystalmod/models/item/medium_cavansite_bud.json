@@ -1,0 +1,11 @@
+{
+  "parent": "crystalmod:item/cavansite_bud",
+  "textures": {
+    "layer0": "crystalmod:block/cavansite/medium_cavansite_bud"
+  },
+  "display": {
+    "fixed": {
+      "translation": [ 0, 4, 0 ]
+    }
+  }
+}

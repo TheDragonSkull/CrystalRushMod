@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "crystalmod:block/cavansite_cluster"
+    "layer0": "crystalmod:block/cavansite/cavansite_cluster"
   },
   "display": {
     "head": {

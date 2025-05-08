@@ -2,6 +2,10 @@
   "values": [
     "crystalmod:cavansite_block",
     "crystalmod:budding_cavansite",
+    "crystalmod:cavansite_cluster",
+    "crystalmod:large_cavansite_bud",
+    "crystalmod:medium_cavansite_bud",
+    "crystalmod:small_cavansite_bud",
     "crystalmod:mortar"
   ]
 }

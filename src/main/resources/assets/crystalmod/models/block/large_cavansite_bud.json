@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "cutout",
   "textures": {
-    "cross": "crystalmod:block/cavansite/cavansite_cluster"
+    "cross": "crystalmod:block/cavansite/large_cavansite_bud"
   }
 }

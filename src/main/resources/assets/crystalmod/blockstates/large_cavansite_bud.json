@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "crystalmod:block/large_cavansite_bud",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "crystalmod:block/large_cavansite_bud",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "crystalmod:block/large_cavansite_bud",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "crystalmod:block/large_cavansite_bud",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "crystalmod:block/large_cavansite_bud"
+    },
+    "facing=west": {
+      "model": "crystalmod:block/large_cavansite_bud",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

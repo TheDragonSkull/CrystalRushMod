@@ -35,9 +35,9 @@ public class BuddingCavansiteBlock extends BuddingAmethystBlock {
                 block = ModBlocks.MEDIUM_CAVANSITE_BUD.get();
 
             } else if (blockstate.is(ModBlocks.MEDIUM_CAVANSITE_BUD.get()) && blockstate.getValue(AmethystClusterBlock.FACING) == direction) {
-                block = Blocks.LARGE_AMETHYST_BUD;
+                block = ModBlocks.LARGE_CAVANSITE_BUD.get();
 
-            } else if (blockstate.is(Blocks.LARGE_AMETHYST_BUD) && blockstate.getValue(AmethystClusterBlock.FACING) == direction) {
+            } else if (blockstate.is(ModBlocks.LARGE_CAVANSITE_BUD.get()) && blockstate.getValue(AmethystClusterBlock.FACING) == direction) {
                 block = ModBlocks.CAVANSITE_CLUSTER.get();
             }
 
