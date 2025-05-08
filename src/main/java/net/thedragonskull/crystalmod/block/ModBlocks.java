@@ -2,14 +2,16 @@ package net.thedragonskull.crystalmod.block;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.thedragonskull.crystalmod.CrystalMod;
+import net.thedragonskull.crystalmod.block.custom.BuddingCavansiteBlock;
 import net.thedragonskull.crystalmod.block.custom.Mortar;
 import net.thedragonskull.crystalmod.item.ModItems;
 
@@ -23,8 +25,35 @@ public class ModBlocks {
             () -> new Mortar(BlockBehaviour.Properties.copy(Blocks.DIORITE).strength(1.5F, 6.0F)
                     .noOcclusion().requiresCorrectToolForDrops()));
 
+    // CAVANSITE
 
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
+    public static final RegistryObject<Block> CAVANSITE_BLOCK = registerBlock("cavansite_block",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).strength(1.5F).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> BUDDING_CAVANSITE = registerBlock("budding_cavansite",
+            () -> new BuddingCavansiteBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).randomTicks()
+                    .strength(1.5F).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> CAVANSITE_CLUSTER = registerBlock("cavansite_cluster",
+            () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).forceSolidOn()
+                    .noOcclusion().randomTicks().sound(SoundType.GLASS).strength(1.5F)
+                    .lightLevel((state) -> 5).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> LARGE_CAVANSITE_BUD = registerBlock("large_cavansite_bud",
+            () -> new AmethystClusterBlock(5, 3, BlockBehaviour.Properties.copy(ModBlocks.CAVANSITE_CLUSTER.get()).forceSolidOn()
+                    .sound(SoundType.GLASS).lightLevel((state) -> 4).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> MEDIUM_CAVANSITE_BUD = registerBlock("medium_cavansite_bud",
+            () -> new AmethystClusterBlock(4, 3, BlockBehaviour.Properties.copy(ModBlocks.CAVANSITE_CLUSTER.get()).forceSolidOn()
+                    .sound(SoundType.GLASS).lightLevel((state) -> 2).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> SMALL_CAVANSITE_BUD = registerBlock("small_cavansite_bud",
+            () -> new AmethystClusterBlock(3, 4, BlockBehaviour.Properties.copy(ModBlocks.CAVANSITE_CLUSTER.get()).forceSolidOn()
+                    .sound(SoundType.GLASS).lightLevel((state) -> 1).pushReaction(PushReaction.DESTROY)));
+
+
+
+        private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
         return toReturn;

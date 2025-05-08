@@ -1,5 +1,12 @@
 {
   "item.crystalmod.raw_amethyst_powder": "Raw Amethyst Powder",
+  "item.crystalmod.cavansite_shard": "Cavansite Shard",
 
-  "block.crystalmod.mortar": "Mortar and Pestle"
+  "block.crystalmod.mortar": "Mortar and Pestle",
+
+  "block.crystalmod.cavansite_block": "Cavansite Block",
+  "block.crystalmod.budding_cavansite": "Budding Cavansite",
+  "block.crystalmod.cavansite_cluster": "Cavansite Cluster",
+
+  "creativetab.crystal_tab": "Crystal Rush"
 }

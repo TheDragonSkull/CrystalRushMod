@@ -21,6 +21,9 @@ public class ModItems {
     public static final RegistryObject<Item> RAW_AMETHYST_POWDER = ITEMS.register("raw_amethyst_powder",
             () -> new RawAmethystPowder(new Item.Properties()));
 
+    public static final RegistryObject<Item> CAVANSITE_SHARD = ITEMS.register("cavansite_shard",
+            () -> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
