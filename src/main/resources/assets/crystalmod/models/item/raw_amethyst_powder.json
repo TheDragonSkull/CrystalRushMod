@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "crystalmod:item/raw_amethyst_powder"
+    "layer0": "crystalmod:item/amethyst/raw_amethyst_powder"
   }
 }

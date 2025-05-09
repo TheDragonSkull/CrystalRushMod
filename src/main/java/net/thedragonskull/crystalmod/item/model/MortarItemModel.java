@@ -14,7 +14,7 @@ public class MortarItemModel extends GeoModel<MortarItem> {
 
     @Override
     public ResourceLocation getTextureResource(MortarItem animatable) {
-        return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar.png");
+        return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar/mortar.png");
     }
 
     @Override

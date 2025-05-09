@@ -1,8 +1,10 @@
 package net.thedragonskull.crystalmod.block.entity.model;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.thedragonskull.crystalmod.CrystalMod;
 import net.thedragonskull.crystalmod.block.entity.MortarBE;
+import net.thedragonskull.crystalmod.item.ModItems;
 import software.bernie.geckolib.model.GeoModel;
 
 public class MortarModel extends GeoModel<MortarBE> {
@@ -14,7 +16,17 @@ public class MortarModel extends GeoModel<MortarBE> {
 
     @Override
     public ResourceLocation getTextureResource(MortarBE animatable) {
-        return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar.png");
+        ItemStack slotStack = animatable.getSlotItem();
+
+        if (slotStack.is(ModItems.RAW_AMETHYST_POWDER.get())) {
+            return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar/mortar.png");
+
+        } else if (slotStack.is(ModItems.RAW_CAVANSITE_POWDER.get())) {
+            return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar/mortar_cavansite.png");
+
+        } else {
+            return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar/mortar.png");
+        }
     }
 
     @Override

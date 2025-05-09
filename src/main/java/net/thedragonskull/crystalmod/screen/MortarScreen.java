@@ -7,7 +7,10 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.thedragonskull.crystalmod.CrystalMod;
+import net.thedragonskull.crystalmod.item.ModItems;
 
 public class MortarScreen extends AbstractContainerScreen<MortarMenu> {
     private static final ResourceLocation TEXTURE =
@@ -39,7 +42,14 @@ public class MortarScreen extends AbstractContainerScreen<MortarMenu> {
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + 101, y + 58, 176, 0, 12, menu.getScaledProgress());
+            ItemStack stack = menu.mortarBE.getSlotItem();
+            int vOffset = 0;
+
+            if (stack.is(ModItems.CAVANSITE_SHARD.get())) {
+                vOffset = 11;
+            }
+
+            guiGraphics.blit(TEXTURE, x + 101, y + 58, 176, vOffset, 12, menu.getScaledProgress());
         }
     }
 
