@@ -76,7 +76,6 @@ public class Mortar extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
-            ItemStack heldItem = player.getMainHandItem();
 
             if (!(entity instanceof MortarBE mortarBE)) {
                 throw new IllegalStateException("Our Container provider is missing!");

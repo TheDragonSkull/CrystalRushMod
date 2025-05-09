@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -21,8 +22,10 @@ public class ModCreativeModeTabs {
                     .displayItems((pParameters, pOutput) -> {
 
                         pOutput.accept(ModItems.MORTAR_ITEM.get());
+                        pOutput.accept(Items.AMETHYST_SHARD);
                         pOutput.accept(ModItems.RAW_AMETHYST_POWDER.get());
                         pOutput.accept(ModItems.CAVANSITE_SHARD.get());
+                        pOutput.accept(ModItems.RAW_CAVANSITE_POWDER.get());
 
                         pOutput.accept(ModBlocks.CAVANSITE_BLOCK.get());
                         pOutput.accept(ModBlocks.BUDDING_CAVANSITE.get());

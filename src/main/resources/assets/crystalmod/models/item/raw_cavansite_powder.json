@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "crystalmod:item/cavansite/cavansite_shard"
+    "layer0": "crystalmod:item/cavansite/raw_cavansite_powder"
   }
 }
