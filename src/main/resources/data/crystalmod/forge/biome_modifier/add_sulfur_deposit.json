@@ -1,6 +1,7 @@
 {
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_nether",
-  "features": "crystalmod:sulfur_deposit",
-  "step": "vegetal_decoration"
+  "type": "crystalmod:sulfur_addition",
+  "biomes": [
+    "minecraft:basalt_deltas"
+  ],
+  "features": "crystalmod:sulfur_deposit"
 }

@@ -16,6 +16,8 @@ import net.thedragonskull.crystalmod.item.ModItems;
 import net.thedragonskull.crystalmod.recipe.ModRecipes;
 import net.thedragonskull.crystalmod.screen.ModMenuTypes;
 import net.thedragonskull.crystalmod.sound.ModSounds;
+import net.thedragonskull.crystalmod.world.biomemods.ModBiomeModifiers;
+import net.thedragonskull.crystalmod.world.feature.ModPlacedFeatures;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
 
@@ -34,6 +36,8 @@ public class CrystalMod {
         ModRecipes.register(modEventBus);
         ModSounds.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
+        ModPlacedFeatures.register(modEventBus);
+        ModBiomeModifiers.register(modEventBus);
 
         GeckoLib.initialize();
 
