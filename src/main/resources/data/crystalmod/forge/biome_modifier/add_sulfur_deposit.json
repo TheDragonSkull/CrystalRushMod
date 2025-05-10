@@ -1,7 +1,0 @@
-{
-  "type": "crystalmod:sulfur_addition",
-  "biomes": [
-    "minecraft:basalt_deltas"
-  ],
-  "features": "crystalmod:sulfur_deposit"
-}

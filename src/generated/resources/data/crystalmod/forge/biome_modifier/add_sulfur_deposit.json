@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:basalt_deltas",
+  "features": "crystalmod:sulfur_deposit_placed",
+  "step": "underground_ores"
+}

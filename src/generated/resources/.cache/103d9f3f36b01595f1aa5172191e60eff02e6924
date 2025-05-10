@@ -1,0 +1,4 @@
+// 1.20.1	2025-05-10T12:10:21.3594487	Registries
+d95adaeca440c65728cf30c014b10f5a859a06ca data/crystalmod/forge/biome_modifier/add_sulfur_deposit.json
+282d709658dd6b574851532697b3d44c11a0a4fd data/crystalmod/worldgen/configured_feature/sulfur_deposit.json
+1262d3e85c322b899cc84c66e1c1f2c0e0e7cf96 data/crystalmod/worldgen/placed_feature/sulfur_deposit_placed.json
