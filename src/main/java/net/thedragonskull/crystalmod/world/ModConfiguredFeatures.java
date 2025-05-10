@@ -26,40 +26,10 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_DEPOSIT_KEY = registerKey("sulfur_deposit");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-
-        PlacedFeature sulfurBudPlacedFeature = new PlacedFeature(
-                Holder.direct(new ConfiguredFeature<>(
-                        Feature.SIMPLE_BLOCK,
-                        new SimpleBlockConfiguration(
-                                BlockStateProvider.simple(ModBlocks.SMALL_CAVANSITE_BUD.get()) // todo cambiar
-                        )
-                )),
-                List.of(
-                        BlockPredicateFilter.forPredicate(
-                                BlockPredicate.allOf(
-                                        BlockPredicate.matchesBlocks(Blocks.AIR),
-                                        BlockPredicate.anyOf(
-                                                BlockPredicate.matchesBlocks(new BlockPos(0, -1, 0), Blocks.BASALT),
-                                                BlockPredicate.matchesBlocks(new BlockPos(0,  1, 0), Blocks.BASALT),
-                                                BlockPredicate.matchesBlocks(new BlockPos( 1, 0, 0), Blocks.BASALT),
-                                                BlockPredicate.matchesBlocks(new BlockPos(-1, 0, 0), Blocks.BASALT),
-                                                BlockPredicate.matchesBlocks(new BlockPos(0, 0,  1), Blocks.BASALT),
-                                                BlockPredicate.matchesBlocks(new BlockPos(0, 0, -1), Blocks.BASALT)
-                                        )
-                                )
-                        )
-
-                )
+        register(context, SULFUR_DEPOSIT_KEY,
+                ModFeatures.SULFUR_CLUSTER_FEATURE.get(),
+                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SMALL_CAVANSITE_BUD.get()))
         );
-
-        RandomPatchConfiguration sulfurPatchConfig = new RandomPatchConfiguration(
-                96,
-                7,
-                3,
-                Holder.direct(sulfurBudPlacedFeature)
-        );
-
-        register(context, SULFUR_DEPOSIT_KEY, Feature.RANDOM_PATCH, sulfurPatchConfig);
     }
 
         public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
