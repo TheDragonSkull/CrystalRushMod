@@ -28,7 +28,7 @@ public class ModConfiguredFeatures {
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         register(context, SULFUR_DEPOSIT_KEY,
                 ModFeatures.SULFUR_CLUSTER_FEATURE.get(),
-                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SMALL_CAVANSITE_BUD.get()))
+                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SULFUR_CLUSTER.get()))
         );
     }
 

@@ -25,6 +25,7 @@ public class ModBlocks {
             () -> new Mortar(BlockBehaviour.Properties.copy(Blocks.DIORITE).strength(1.5F, 6.0F)
                     .noOcclusion().requiresCorrectToolForDrops()));
 
+
     // CAVANSITE
 
     public static final RegistryObject<Block> CAVANSITE_BLOCK = registerBlock("cavansite_block",
@@ -50,6 +51,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SMALL_CAVANSITE_BUD = registerBlock("small_cavansite_bud",
             () -> new AmethystClusterBlock(3, 4, BlockBehaviour.Properties.copy(ModBlocks.CAVANSITE_CLUSTER.get()).forceSolidOn()
                     .sound(SoundType.GLASS).lightLevel((state) -> 1).pushReaction(PushReaction.DESTROY)));
+
 
     // SULFUR
 

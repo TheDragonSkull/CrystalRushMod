@@ -2,6 +2,7 @@
   "item.crystalmod.raw_amethyst_powder": "Raw Amethyst Powder",
   "item.crystalmod.cavansite_shard": "Cavansite Shard",
   "item.crystalmod.raw_cavansite_powder": "Raw Cavansite Powder",
+  "item.crystalmod.sulfur_shard": "Sulfur Shard",
 
   "block.crystalmod.mortar": "Mortar and Pestle",
 
@@ -11,6 +12,8 @@
   "block.crystalmod.small_cavansite_bud": "Small Cavansite Bud",
   "block.crystalmod.medium_cavansite_bud": "Medium Cavansite Bud",
   "block.crystalmod.large_cavansite_bud": "Large Cavansite Bud",
+
+  "block.crystalmod.sulfur_cluster": "Sulfur Cluster",
 
   "creativetab.crystal_tab": "Crystal Rush"
 }

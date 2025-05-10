@@ -1,0 +1,16 @@
+{
+  "parent": "crystalmod:item/cavansite_bud",
+  "textures": {
+    "layer0": "crystalmod:block/sulfur/sulfur_cluster"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [ 0, -90, 25 ],
+      "translation": [ 0, 6, 0 ],
+      "scale": [ 0.68, 0.68, 0.68 ]
+    },
+    "fixed": {
+      "translation": [ 0, 5, 0 ]
+    }
+  }
+}

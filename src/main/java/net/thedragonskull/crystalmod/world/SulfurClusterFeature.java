@@ -38,7 +38,7 @@ public class SulfurClusterFeature extends Feature<SimpleBlockConfiguration> {
 
             for (Direction dir : Direction.values()) {
                 BlockPos adjacent = pos.relative(dir.getOpposite());
-                if (level.getBlockState(adjacent).is(Blocks.BASALT)) {
+                if (level.getBlockState(adjacent).is(Blocks.BASALT)) { // TODO: basalt y blackstone / cerca de la lava <= 3 blocks
                     BlockState state = block.defaultBlockState().setValue(FACING, dir);
                     level.setBlock(pos, state, 2);
                     placed++;
