@@ -1,0 +1,12 @@
+{
+  "type": "crystalmod:mortar_grinding",
+  "ingredients": [
+    {
+      "item": "crystalmod:sulfur_shard"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "crystalmod:raw_sulfur_powder"
+  }
+}

@@ -47,6 +47,8 @@ public class MortarScreen extends AbstractContainerScreen<MortarMenu> {
 
             if (stack.is(ModItems.CAVANSITE_SHARD.get())) {
                 vOffset = 11;
+            } else if (stack.is(ModItems.SULFUR_SHARD.get())) {
+                vOffset = 22;
             }
 
             guiGraphics.blit(TEXTURE, x + 101, y + 58, 176, vOffset, 12, menu.getScaledProgress());
