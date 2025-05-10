@@ -13,6 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.thedragonskull.crystalmod.CrystalMod;
 import net.thedragonskull.crystalmod.block.custom.BuddingCavansiteBlock;
 import net.thedragonskull.crystalmod.block.custom.Mortar;
+import net.thedragonskull.crystalmod.block.custom.SulfuricBasaltBlock;
 import net.thedragonskull.crystalmod.item.ModItems;
 
 import java.util.function.Supplier;
@@ -54,6 +55,9 @@ public class ModBlocks {
 
 
     // SULFUR
+
+    public static final RegistryObject<Block> SULFURIC_BASALT = registerBlock("sulfuric_basalt",
+            () -> new SulfuricBasaltBlock(BlockBehaviour.Properties.copy(Blocks.BASALT)));
 
     public static final RegistryObject<Block> SULFUR_CLUSTER = registerBlock("sulfur_cluster",
             () -> new AmethystClusterBlock(3, 4, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).forceSolidOn()
