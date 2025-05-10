@@ -38,7 +38,9 @@ public class SulfurClusterFeature extends Feature<SimpleBlockConfiguration> {
 
             for (Direction dir : Direction.values()) {
                 BlockPos adjacent = pos.relative(dir.getOpposite());
-                if (level.getBlockState(adjacent).is(Blocks.BASALT)) { // TODO: basalt y blackstone / cerca de la lava <= 3 blocks
+                BlockState adjacentState = level.getBlockState(adjacent);
+
+                if (isValidBaseBlock(adjacentState.getBlock()) && hasLavaNearby(level, pos, 3)) {
                     BlockState state = block.defaultBlockState().setValue(FACING, dir);
                     level.setBlock(pos, state, 2);
                     placed++;
@@ -48,6 +50,25 @@ public class SulfurClusterFeature extends Feature<SimpleBlockConfiguration> {
         }
 
         return placed > 0;
+    }
+
+    private boolean isValidBaseBlock(Block block) {
+        return block == Blocks.BASALT || block == Blocks.BLACKSTONE;
+    }
+
+    private boolean hasLavaNearby(LevelAccessor level, BlockPos center, int radius) {
+        BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dy = -radius; dy <= radius; dy++) {
+                for (int dz = -radius; dz <= radius; dz++) {
+                    checkPos.set(center.getX() + dx, center.getY() + dy, center.getZ() + dz);
+                    if (level.getBlockState(checkPos).is(Blocks.LAVA)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }

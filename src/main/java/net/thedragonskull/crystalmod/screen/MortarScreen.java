@@ -47,6 +47,7 @@ public class MortarScreen extends AbstractContainerScreen<MortarMenu> {
 
             if (stack.is(ModItems.CAVANSITE_SHARD.get())) {
                 vOffset = 11;
+
             } else if (stack.is(ModItems.SULFUR_SHARD.get())) {
                 vOffset = 22;
             }
