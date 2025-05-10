@@ -35,6 +35,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.LARGE_CAVANSITE_BUD.get());
                         pOutput.accept(ModBlocks.CAVANSITE_CLUSTER.get());
 
+                        pOutput.accept(ModBlocks.SULFUR_CLUSTER.get());
+
                     })
                     .build());
 

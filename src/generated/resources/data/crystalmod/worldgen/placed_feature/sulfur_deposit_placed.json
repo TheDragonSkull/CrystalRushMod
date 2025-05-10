@@ -6,7 +6,8 @@
       "count": 12
     },
     {
-      "type": "minecraft:in_square"
+      "type": "minecraft:rarity_filter",
+      "chance": 2
     },
     {
       "type": "minecraft:height_range",

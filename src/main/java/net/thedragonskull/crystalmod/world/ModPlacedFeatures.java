@@ -23,7 +23,7 @@ public class ModPlacedFeatures {
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.SULFUR_DEPOSIT_KEY),
                 List.of(
                         CountPlacement.of(12),
-                        InSquarePlacement.spread(),
+                        RarityFilter.onAverageOnceEvery(2), // 50% chance
                         HeightRangePlacement.uniform(
                                 VerticalAnchor.aboveBottom(0),
                                 VerticalAnchor.belowTop(0)

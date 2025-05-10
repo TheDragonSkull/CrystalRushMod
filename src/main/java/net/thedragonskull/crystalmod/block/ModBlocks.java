@@ -51,6 +51,12 @@ public class ModBlocks {
             () -> new AmethystClusterBlock(3, 4, BlockBehaviour.Properties.copy(ModBlocks.CAVANSITE_CLUSTER.get()).forceSolidOn()
                     .sound(SoundType.GLASS).lightLevel((state) -> 1).pushReaction(PushReaction.DESTROY)));
 
+    // SULFUR
+
+    public static final RegistryObject<Block> SULFUR_CLUSTER = registerBlock("sulfur_cluster",
+            () -> new AmethystClusterBlock(3, 4, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).forceSolidOn()
+                    .noOcclusion().randomTicks().sound(SoundType.GLASS).strength(1.5F)
+                    .lightLevel((state) -> 1).pushReaction(PushReaction.DESTROY)));
 
 
         private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
