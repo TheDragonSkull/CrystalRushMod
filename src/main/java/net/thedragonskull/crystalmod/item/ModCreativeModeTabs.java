@@ -26,19 +26,20 @@ public class ModCreativeModeTabs {
                         pOutput.accept(Items.AMETHYST_SHARD);
                         pOutput.accept(ModItems.RAW_AMETHYST_POWDER.get());
 
-                        pOutput.accept(ModItems.CAVANSITE_SHARD.get());
-                        pOutput.accept(ModItems.RAW_CAVANSITE_POWDER.get());
                         pOutput.accept(ModBlocks.CAVANSITE_BLOCK.get());
                         pOutput.accept(ModBlocks.BUDDING_CAVANSITE.get());
                         pOutput.accept(ModBlocks.SMALL_CAVANSITE_BUD.get());
                         pOutput.accept(ModBlocks.MEDIUM_CAVANSITE_BUD.get());
                         pOutput.accept(ModBlocks.LARGE_CAVANSITE_BUD.get());
                         pOutput.accept(ModBlocks.CAVANSITE_CLUSTER.get());
+                        pOutput.accept(ModItems.CAVANSITE_SHARD.get());
+                        pOutput.accept(ModItems.RAW_CAVANSITE_POWDER.get());
 
-                        pOutput.accept(ModItems.SULFUR_SHARD.get());
-                        pOutput.accept(ModItems.RAW_SULFUR_POWDER.get());
+                        pOutput.accept(ModBlocks.SULFUR_BLOCK.get());
                         pOutput.accept(ModBlocks.SULFURIC_BASALT.get());
                         pOutput.accept(ModBlocks.SULFUR_CLUSTER.get());
+                        pOutput.accept(ModItems.SULFUR_SHARD.get());
+                        pOutput.accept(ModItems.RAW_SULFUR_POWDER.get());
 
                     })
                     .build());

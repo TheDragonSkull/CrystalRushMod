@@ -56,6 +56,9 @@ public class ModBlocks {
 
     // SULFUR
 
+    public static final RegistryObject<Block> SULFUR_BLOCK = registerBlock("sulfur_block",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(1.5F).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> SULFURIC_BASALT = registerBlock("sulfuric_basalt",
             () -> new SulfuricBasaltBlock(BlockBehaviour.Properties.copy(Blocks.BASALT)));
 

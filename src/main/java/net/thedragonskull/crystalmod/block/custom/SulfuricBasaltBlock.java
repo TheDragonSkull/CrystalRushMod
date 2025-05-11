@@ -12,6 +12,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.thedragonskull.crystalmod.block.ModBlocks;
 
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.Queue;
+import java.util.Set;
+
 import static net.minecraft.world.level.block.BuddingAmethystBlock.canClusterGrowAtState;
 
 public class SulfuricBasaltBlock extends Block {
@@ -31,7 +36,7 @@ public class SulfuricBasaltBlock extends Block {
         if (!hasNearby(level, pos, Blocks.LAVA, 3)) return;
 
         // Close water (<= 10)
-        if (hasNearby(level, pos, Blocks.WATER, 10)) return;
+        if (hasNearby(level, pos, Blocks.WATER, 3)) return;
 
         if (random.nextInt(20) != 0) return;
 
@@ -60,5 +65,33 @@ public class SulfuricBasaltBlock extends Block {
         }
         return false;
     }
+
+    private boolean hasVisibleNearby(LevelAccessor level, BlockPos start, Block targetBlock, int radius) {
+        Set<BlockPos> visited = new HashSet<>();
+        Queue<BlockPos> queue = new ArrayDeque<>();
+        queue.add(start);
+        visited.add(start);
+
+        while (!queue.isEmpty()) {
+            BlockPos current = queue.poll();
+
+            if (start.distManhattan(current) > radius) continue;
+
+            if (level.getBlockState(current).is(targetBlock)) {
+                return true;
+            }
+
+            for (Direction dir : Direction.values()) {
+                BlockPos next = current.relative(dir);
+                if (!visited.contains(next) && level.getBlockState(next).isAir()) {
+                    visited.add(next);
+                    queue.add(next);
+                }
+            }
+        }
+
+        return false;
+    }
+
 
 }
