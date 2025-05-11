@@ -69,7 +69,7 @@ public class ModBlocks {
                     .lightLevel((state) -> 1).pushReaction(PushReaction.DESTROY)));
 
     public static final RegistryObject<Block> SULFUR_GAS = registerBlock("sulfur_gas",
-            () -> new SulfurGasBlock(BlockBehaviour.Properties.of().noOcclusion().randomTicks()));
+            () -> new SulfurGasBlock(BlockBehaviour.Properties.of().noOcclusion().replaceable().randomTicks().lightLevel(s -> 0)));
 
 
         private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
