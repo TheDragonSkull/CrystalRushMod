@@ -2,6 +2,10 @@ package net.thedragonskull.crystalmod.block.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -28,6 +32,27 @@ public class SulfurGasBlock extends HalfTransparentBlock implements EntityBlock 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         return pLevel.isClientSide() ? null : (level0, pos0, state0, blockEntity) -> ((SulfurGasBE)blockEntity).tick();
+    }
+
+    @Override
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+
+        if (pLevel.isClientSide || !(pEntity instanceof Player player)) return;
+
+        BlockPos headPos = player.blockPosition().above();
+
+        if (pPos.equals(headPos)) { //todo cambiar esto
+
+            if (!player.hasEffect(MobEffects.POISON)) {
+                player.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0, false, true, true));
+            }
+
+            if (!player.hasEffect(MobEffects.CONFUSION)) {
+                player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 1, false, true, true));
+            }
+        }
+
+        super.entityInside(pState, pLevel, pPos, pEntity);
     }
 
     @Override
