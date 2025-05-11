@@ -26,7 +26,8 @@ public class SulfurGasBE extends BlockEntity {
         }
 
         if (!hasNearbyBlock(level, worldPosition, Blocks.LAVA, 3) ||
-                !hasNearbyBlock(level, worldPosition, Blocks.BASALT, 3)) {
+                !hasNearbyBlock(level, worldPosition, Blocks.BASALT, 3) ||
+                    hasNearbyBlock(level, worldPosition, Blocks.WATER, 3) ) {
             tickCounter += 5;
         }
 
