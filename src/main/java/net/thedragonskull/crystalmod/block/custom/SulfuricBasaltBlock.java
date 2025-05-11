@@ -66,32 +66,4 @@ public class SulfuricBasaltBlock extends Block {
         return false;
     }
 
-    private boolean hasVisibleNearby(LevelAccessor level, BlockPos start, Block targetBlock, int radius) {
-        Set<BlockPos> visited = new HashSet<>();
-        Queue<BlockPos> queue = new ArrayDeque<>();
-        queue.add(start);
-        visited.add(start);
-
-        while (!queue.isEmpty()) {
-            BlockPos current = queue.poll();
-
-            if (start.distManhattan(current) > radius) continue;
-
-            if (level.getBlockState(current).is(targetBlock)) {
-                return true;
-            }
-
-            for (Direction dir : Direction.values()) {
-                BlockPos next = current.relative(dir);
-                if (!visited.contains(next) && level.getBlockState(next).isAir()) {
-                    visited.add(next);
-                    queue.add(next);
-                }
-            }
-        }
-
-        return false;
-    }
-
-
 }

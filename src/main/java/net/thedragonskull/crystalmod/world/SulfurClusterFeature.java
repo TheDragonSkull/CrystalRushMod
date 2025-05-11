@@ -13,6 +13,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 
 import static net.minecraft.world.level.block.AmethystClusterBlock.FACING;
+import static net.thedragonskull.crystalmod.util.BlockSearchUtil.hasNearbyBlock;
 
 public class SulfurClusterFeature extends Feature<SimpleBlockConfiguration> {
 
@@ -40,7 +41,7 @@ public class SulfurClusterFeature extends Feature<SimpleBlockConfiguration> {
                 BlockPos adjacent = pos.relative(dir.getOpposite());
                 BlockState adjacentState = level.getBlockState(adjacent);
 
-                if (isValidBaseBlock(adjacentState.getBlock()) && hasLavaNearby(level, pos, 3)) {
+                if (isValidBaseBlock(adjacentState.getBlock()) && hasNearbyBlock(level, pos, Blocks.LAVA, 3)) {
                     BlockState state = block.defaultBlockState().setValue(FACING, dir);
                     level.setBlock(pos, state, 2);
                     placed++;
@@ -55,20 +56,4 @@ public class SulfurClusterFeature extends Feature<SimpleBlockConfiguration> {
     private boolean isValidBaseBlock(Block block) {
         return block == Blocks.BASALT || block == Blocks.BLACKSTONE;
     }
-
-    private boolean hasLavaNearby(LevelAccessor level, BlockPos center, int radius) {
-        BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
-        for (int dx = -radius; dx <= radius; dx++) {
-            for (int dy = -radius; dy <= radius; dy++) {
-                for (int dz = -radius; dz <= radius; dz++) {
-                    checkPos.set(center.getX() + dx, center.getY() + dy, center.getZ() + dz);
-                    if (level.getBlockState(checkPos).is(Blocks.LAVA)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
 }

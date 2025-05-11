@@ -13,6 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.thedragonskull.crystalmod.CrystalMod;
 import net.thedragonskull.crystalmod.block.custom.BuddingCavansiteBlock;
 import net.thedragonskull.crystalmod.block.custom.Mortar;
+import net.thedragonskull.crystalmod.block.custom.SulfurGasBlock;
 import net.thedragonskull.crystalmod.block.custom.SulfuricBasaltBlock;
 import net.thedragonskull.crystalmod.item.ModItems;
 
@@ -66,6 +67,9 @@ public class ModBlocks {
             () -> new AmethystClusterBlock(3, 4, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).forceSolidOn()
                     .noOcclusion().randomTicks().sound(SoundType.GLASS).strength(1.5F)
                     .lightLevel((state) -> 1).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> SULFUR_GAS = registerBlock("sulfur_gas",
+            () -> new SulfurGasBlock(BlockBehaviour.Properties.of().noOcclusion().randomTicks()));
 
 
         private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

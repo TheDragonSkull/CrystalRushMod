@@ -18,6 +18,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(MortarBE::new,
                             ModBlocks.MORTAR.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<SulfurGasBE>> SULFUR_GAS_BE =
+            BLOCK_ENTITIES.register("sulfur_gas_be", () ->
+                    BlockEntityType.Builder.of(SulfurGasBE::new,
+                            ModBlocks.SULFUR_GAS.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }

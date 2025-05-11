@@ -30,6 +30,7 @@ public class ModPlacedFeatures {
                         ),
                         BiomeFilter.biome()
                 ));
+
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {

@@ -26,10 +26,12 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_DEPOSIT_KEY = registerKey("sulfur_deposit");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+
         register(context, SULFUR_DEPOSIT_KEY,
                 ModFeatures.SULFUR_CLUSTER_FEATURE.get(),
                 new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SULFUR_CLUSTER.get()))
         );
+
     }
 
         public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
