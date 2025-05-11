@@ -62,11 +62,12 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> SULFUR_CLUSTER = registerBlock("sulfur_cluster",
             () -> new SulfurClusterBlock(3, 4, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).forceSolidOn()
-                    .noOcclusion().randomTicks().sound(SoundType.GLASS).strength(1.5F)
-                    .lightLevel((state) -> 1).pushReaction(PushReaction.DESTROY)));
+                    .noOcclusion().randomTicks().sound(SoundType.GLASS).strength(1.5F).noParticlesOnBreak()
+                    .noLootTable().lightLevel((state) -> 1).pushReaction(PushReaction.BLOCK)));
 
     public static final RegistryObject<Block> SULFUR_GAS = registerBlock("sulfur_gas",
-            () -> new SulfurGasBlock(BlockBehaviour.Properties.of().noOcclusion().replaceable().randomTicks().lightLevel(s -> 0)));
+            () -> new SulfurGasBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.8F)
+                    .noOcclusion().replaceable().randomTicks().lightLevel(s -> 0)));
 
 
         private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

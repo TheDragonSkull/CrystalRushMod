@@ -2,10 +2,14 @@ package net.thedragonskull.crystalmod.block.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -15,11 +19,16 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.extensions.IForgeFluid;
 import net.thedragonskull.crystalmod.block.entity.ModBlockEntities;
+import net.thedragonskull.crystalmod.block.entity.MortarBE;
 import net.thedragonskull.crystalmod.block.entity.SulfurGasBE;
+import net.thedragonskull.crystalmod.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 public class SulfurGasBlock extends HalfTransparentBlock implements EntityBlock {
@@ -36,23 +45,41 @@ public class SulfurGasBlock extends HalfTransparentBlock implements EntityBlock 
 
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-
         if (pLevel.isClientSide || !(pEntity instanceof Player player)) return;
 
         BlockPos headPos = player.blockPosition().above();
 
-        if (pPos.equals(headPos)) { //todo cambiar esto
+        if (pPos.equals(headPos)) {
 
             if (!player.hasEffect(MobEffects.POISON)) {
-                player.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0, false, true, true));
+                player.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0, false, false, false));
             }
 
-            if (!player.hasEffect(MobEffects.CONFUSION)) {
-                player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 1, false, true, true));
+            player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0, false, false, false));
+        }
+    }
+
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (!pLevel.isClientSide()) {
+            BlockEntity entity = pLevel.getBlockEntity(pPos);
+
+            if (!(entity instanceof SulfurGasBE)) {
+                throw new IllegalStateException("Our Container provider is missing!");
+            }
+
+            if (pPlayer.getMainHandItem().is(Items.GLASS_BOTTLE)) {
+                ItemStack handItem = pPlayer.getItemInHand(pHand);
+
+                handItem.shrink(1);
+                pPlayer.addItem(new ItemStack(ModItems.MORTAR_ITEM.get()));
+                pLevel.removeBlock(pPos, false);
+
+                return InteractionResult.SUCCESS;
             }
         }
 
-        super.entityInside(pState, pLevel, pPos, pEntity);
+        return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 
     @Override
@@ -75,7 +102,7 @@ public class SulfurGasBlock extends HalfTransparentBlock implements EntityBlock 
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockGetter, BlockPos pos, CollisionContext collisionContext) {
-        return Shapes.empty();
+        return  Shapes.empty();
     }
 
     @Override

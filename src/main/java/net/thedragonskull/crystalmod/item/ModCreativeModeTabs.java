@@ -37,8 +37,8 @@ public class ModCreativeModeTabs {
 
                         pOutput.accept(ModBlocks.SULFUR_BLOCK.get());
                         pOutput.accept(ModBlocks.SULFURIC_BASALT.get());
-                        pOutput.accept(ModBlocks.SULFUR_CLUSTER.get());
                         pOutput.accept(ModBlocks.SULFUR_GAS.get());
+                        pOutput.accept(ModBlocks.SULFUR_CLUSTER.get());
                         pOutput.accept(ModItems.SULFUR_SHARD.get());
                         pOutput.accept(ModItems.RAW_SULFUR_POWDER.get());
 
