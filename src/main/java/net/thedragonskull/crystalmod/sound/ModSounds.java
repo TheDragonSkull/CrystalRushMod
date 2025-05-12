@@ -18,6 +18,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> EMPTY_GRINDING =
             registerSoundEvents("empty_grinding");
 
+    public static final RegistryObject<SoundEvent> SNIFF =
+            registerSoundEvents("sniff");
+
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(CrystalMod.MOD_ID, name)));
     }

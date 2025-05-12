@@ -10,5 +10,11 @@
     "sounds": [
       "crystalmod:empty_grinding"
     ]
+  },
+  "sniff": {
+    "subtitle": "sounds.crystalmod.sniffing",
+    "sounds": [
+      "crystalmod:sniff"
+    ]
   }
 }
