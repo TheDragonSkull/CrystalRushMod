@@ -33,6 +33,9 @@ public class ModItems {
     public static final RegistryObject<Item> RAW_SULFUR_POWDER = ITEMS.register("raw_sulfur_powder",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> SULFUR_DIOXIDE_BOTTLE = ITEMS.register("sulfur_dioxide_bottle",
+            () -> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

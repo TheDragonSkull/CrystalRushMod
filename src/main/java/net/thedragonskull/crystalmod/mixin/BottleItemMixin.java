@@ -1,6 +1,7 @@
 package net.thedragonskull.crystalmod.mixin;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -30,13 +31,20 @@ public class BottleItemMixin {
 
         for (BlockPos pos : BlockPos.betweenClosed(playerPos.offset(-radius, -radius, -radius), playerPos.offset(radius, radius, radius))) {
             BlockState state = level.getBlockState(pos);
+
             if (state.getBlock() instanceof SulfurGasBlock) {
                 if (!level.isClientSide()) {
                     stack.shrink(1);
-                    player.addItem(new ItemStack(ModItems.MORTAR_ITEM.get()));
+                    player.addItem(new ItemStack(ModItems.SULFUR_DIOXIDE_BOTTLE.get()));
                     level.removeBlock(pos, false);
                     level.playSound(null, pos, SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.NEUTRAL, 1.0F, 1.0F);
                     level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
+
+                    for (BlockPos gasPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
+                        if (level.getBlockState(gasPos).getBlock() instanceof SulfurGasBlock) {
+                            level.removeBlock(gasPos, false);
+                        }
+                    }
                 }
 
                 cir.setReturnValue(InteractionResultHolder.sidedSuccess(stack, level.isClientSide()));
