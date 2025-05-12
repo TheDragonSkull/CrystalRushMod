@@ -2,35 +2,23 @@ package net.thedragonskull.crystalmod.block.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.extensions.IForgeFluid;
-import net.thedragonskull.crystalmod.block.entity.ModBlockEntities;
-import net.thedragonskull.crystalmod.block.entity.MortarBE;
 import net.thedragonskull.crystalmod.block.entity.SulfurGasBE;
-import net.thedragonskull.crystalmod.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 public class SulfurGasBlock extends HalfTransparentBlock implements EntityBlock {
@@ -47,42 +35,21 @@ public class SulfurGasBlock extends HalfTransparentBlock implements EntityBlock 
 
     @Override
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pLevel.isClientSide || !(pEntity instanceof Player player)) return;
+        if (pLevel.isClientSide || !(pEntity instanceof LivingEntity entity)) return;
 
-        BlockPos headPos = player.blockPosition().above();
-
-        if (pPos.equals(headPos)) {
-
-            if (!player.hasEffect(MobEffects.POISON)) {
-                player.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0, false, false, false));
-            }
-
-            player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0, false, false, false));
+        BlockPos pos = entity.blockPosition();
+        if (entity instanceof Player) {
+            pos = entity.blockPosition().above();
         }
-    }
 
-    @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pPos.equals(pos)) {
 
-/*        if (!pLevel.isClientSide()) {
-            BlockEntity entity = pLevel.getBlockEntity(pPos);
-
-            if (!(entity instanceof SulfurGasBE)) {
-                throw new IllegalStateException("Our Container provider is missing!");
+            if (!entity.hasEffect(MobEffects.POISON)) {
+                entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0, false, false, false));
             }
 
-            if (pPlayer.getMainHandItem().is(Items.GLASS_BOTTLE)) {
-                ItemStack handItem = pPlayer.getItemInHand(pHand);
-
-                handItem.shrink(1);
-                pPlayer.addItem(new ItemStack(ModItems.MORTAR_ITEM.get()));
-                pLevel.removeBlock(pPos, false);
-
-                return InteractionResult.SUCCESS;
-            }
-        }*/
-
-        return InteractionResult.sidedSuccess(pLevel.isClientSide());
+            entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0, false, false, false));
+        }
     }
 
     @Override
@@ -91,7 +58,7 @@ public class SulfurGasBlock extends HalfTransparentBlock implements EntityBlock 
         if (!pLevel.isClientSide && pOldState.getBlock() instanceof SulfurGasBlock && !pNewState.isAir() && pNewState.getBlock() != pOldState.getBlock()) {
             BlockEntity be = pLevel.getBlockEntity(pPos);
             if (be instanceof SulfurGasBE gasBE) {
-                gasBE.moveOrDie();
+                gasBE.moveGas();
             }
         }
 

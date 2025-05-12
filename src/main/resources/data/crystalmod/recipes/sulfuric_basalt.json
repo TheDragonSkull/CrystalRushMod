@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "crystalmod:sulfur_shard"
+    },
+    "X": {
+      "item": "minecraft:basalt"
+    },
+    "Y": {
+      "item": "crystalmod:sulfur_dioxide_bottle"
+    }
+  },
+  "pattern": [
+    "X#X",
+    "#Y#",
+    "X#X"
+  ],
+  "result": {
+    "item": "crystalmod:sulfuric_basalt"
+  },
+  "show_notification": true
+}

@@ -33,8 +33,7 @@ public class SulfurGasBE extends BlockEntity {
 
     }
 
-    public void moveOrDie() {
-
+    public void moveGas() {
         if (level == null) return;
 
         for (Direction dir : Direction.values()) {
@@ -46,17 +45,15 @@ public class SulfurGasBE extends BlockEntity {
                 BlockState state = getBlockState();
                 level.setBlock(newPos, state, 3);
                 BlockEntity newBE = level.getBlockEntity(newPos);
+
                 if (newBE instanceof SulfurGasBE gasBE) {
                     gasBE.tickCounter = this.tickCounter;
-                } else {
-                    level.removeBlock(newPos, false);
                 }
 
                 return;
             }
         }
 
-        level.removeBlock(worldPosition, false);
     }
 
 

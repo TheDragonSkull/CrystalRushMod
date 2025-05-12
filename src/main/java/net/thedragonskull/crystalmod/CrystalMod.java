@@ -11,6 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.thedragonskull.crystalmod.block.ModBlocks;
 import net.thedragonskull.crystalmod.block.entity.ModBlockEntities;
+import net.thedragonskull.crystalmod.entity.ModEntities;
 import net.thedragonskull.crystalmod.item.ModCreativeModeTabs;
 import net.thedragonskull.crystalmod.item.ModItems;
 import net.thedragonskull.crystalmod.recipe.ModRecipes;
@@ -36,6 +37,7 @@ public class CrystalMod {
         ModSounds.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModFeatures.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         GeckoLib.initialize();
 
