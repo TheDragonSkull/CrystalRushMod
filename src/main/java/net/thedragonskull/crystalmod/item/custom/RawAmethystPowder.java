@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.thedragonskull.crystalmod.effect.ModEffects;
 import net.thedragonskull.crystalmod.sound.ModSounds;
 import org.joml.Vector3f;
 
@@ -47,36 +48,7 @@ public class RawAmethystPowder extends Item {
                         1, 0.2, 0.2, 0.2, 0.01);
             }
 
-            Collection<MobEffectInstance> activeEffects = new ArrayList<>(pLivingEntity.getActiveEffects());
-
-            for (MobEffectInstance effectInstance : activeEffects) {
-                MobEffect effect = effectInstance.getEffect();
-
-                if (effect.isInstantenous()) continue;
-                if (effect.getCategory() == MobEffectCategory.NEUTRAL) continue;
-
-                boolean isBeneficial = effect.getCategory() == MobEffectCategory.BENEFICIAL;
-                int amplifier = effectInstance.getAmplifier();
-                int duration = effectInstance.getDuration();
-
-                if (isBeneficial) {
-                    int newAmplifier = Math.min(amplifier + 1, 4);
-                    int newDuration = duration / 2;
-
-                    pLivingEntity.removeEffect(effect);
-                    pLivingEntity.addEffect(new MobEffectInstance(effect, newDuration, newAmplifier, true, true, true));
-
-                } else if (amplifier > 0) {
-                    int newAmplifier = amplifier - 1;
-                    int newDuration = duration * 2;
-
-                    pLivingEntity.removeEffect(effect);
-                    pLivingEntity.addEffect(new MobEffectInstance(effect, newDuration, newAmplifier, true, true, true));
-                }
-
-            }
-
-
+            pLivingEntity.addEffect(new MobEffectInstance(ModEffects.REBALANCE_EFFECT.get(), 1, 0, false, false, false));
         }
 
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);

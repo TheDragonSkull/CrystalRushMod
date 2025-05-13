@@ -9,6 +9,7 @@ import net.thedragonskull.crystalmod.CrystalMod;
 import net.thedragonskull.crystalmod.block.ModBlocks;
 import net.thedragonskull.crystalmod.item.custom.MortarItem;
 import net.thedragonskull.crystalmod.item.custom.RawAmethystPowder;
+import net.thedragonskull.crystalmod.item.custom.RawCavansitePowder;
 import net.thedragonskull.crystalmod.item.custom.SulfurDioxideBottle;
 
 public class ModItems {
@@ -26,7 +27,7 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> RAW_CAVANSITE_POWDER = ITEMS.register("raw_cavansite_powder",
-            () -> new Item(new Item.Properties()));
+            () -> new RawCavansitePowder(new Item.Properties()));
 
     public static final RegistryObject<Item> SULFUR_SHARD = ITEMS.register("sulfur_shard",
             () -> new Item(new Item.Properties()));
