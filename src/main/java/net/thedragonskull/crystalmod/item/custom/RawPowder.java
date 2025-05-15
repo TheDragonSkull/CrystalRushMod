@@ -6,7 +6,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -15,24 +14,26 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.thedragonskull.crystalmod.effect.ModEffects;
 import net.thedragonskull.crystalmod.sound.ModSounds;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.function.Supplier;
 
-public class RawAmethystPowder extends Item {
+public class RawPowder extends Item {
+    private final Supplier<MobEffectInstance> mobEffect;
+    private final int coolDown;
 
-    public RawAmethystPowder(Properties pProperties) {
+    public RawPowder(Properties pProperties, Supplier<MobEffectInstance> mobEffect, int coolDown) {
         super(pProperties);
+        this.mobEffect = mobEffect;
+        this.coolDown = coolDown;
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
 
         if (pLivingEntity instanceof Player player) {
-            player.getCooldowns().addCooldown(this, 20);
+            player.getCooldowns().addCooldown(this, this.coolDown);
         }
 
         if (!pLevel.isClientSide()) {
@@ -48,7 +49,11 @@ public class RawAmethystPowder extends Item {
                         1, 0.2, 0.2, 0.2, 0.01);
             }
 
-            pLivingEntity.addEffect(new MobEffectInstance(ModEffects.REBALANCE_EFFECT.get(), 1, 0, false, false, false));
+            pLivingEntity.addEffect(this.mobEffect.get());
+        }
+
+        if (pLivingEntity instanceof Player player && !player.getAbilities().instabuild) {
+            pStack.shrink(1);
         }
 
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
