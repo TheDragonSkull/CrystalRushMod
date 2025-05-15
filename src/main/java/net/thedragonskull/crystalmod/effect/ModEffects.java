@@ -15,6 +15,9 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> REBALANCE_EFFECT = MOB_EFFECTS.register("thedragon_rebalance",
             () -> new RebalanceEffect(MobEffectCategory.BENEFICIAL, 0x7444c4));
 
+    public static final RegistryObject<MobEffect> EXCHANGE_EFFECT = MOB_EFFECTS.register("thedragon_exchange",
+            () -> new ExchangeEffect(MobEffectCategory.NEUTRAL, 0x5cccfc));
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

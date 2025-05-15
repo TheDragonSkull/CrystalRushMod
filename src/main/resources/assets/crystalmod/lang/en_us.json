@@ -20,5 +20,8 @@
   "block.crystalmod.sulfur_cluster": "Sulfur Cluster",
   "block.crystalmod.sulfur_gas": "Sulfur Dioxide",
 
+  "effect.crystalmod.thedragon_rebalance": "Rebalance",
+  "effect.crystalmod.thedragon_exchange": "Life Exchange",
+
   "creativetab.crystal_tab": "Crystal Rush"
 }

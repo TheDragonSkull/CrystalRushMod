@@ -34,7 +34,7 @@ public class RebalanceEffect extends InstantenousMobEffect {
             if (isBeneficial) {
                 if (originalAmplifier < 4) {
                     int newAmplifier = originalAmplifier + 1;
-                    int newDuration = Math.max(1, (int)(originalDuration * 0.75f));
+                    int newDuration = Math.max(1, (int)(originalDuration * 0.5f));
 
                     entity.removeEffect(effect);
                     entity.addEffect(new MobEffectInstance(effect, newDuration, newAmplifier, true, true, true));
@@ -42,7 +42,7 @@ public class RebalanceEffect extends InstantenousMobEffect {
 
             } else if (originalAmplifier > 0) {
                 int newAmplifier = originalAmplifier - 1;
-                int newDuration = Math.max(1, (int)(originalDuration * 1.25f));
+                int newDuration = Math.max(1, (int)(originalDuration * 1.5f));
 
                 entity.removeEffect(effect);
                 entity.addEffect(new MobEffectInstance(effect, newDuration, newAmplifier, true, true, true));

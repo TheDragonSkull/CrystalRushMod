@@ -22,11 +22,13 @@ import java.util.function.Supplier;
 public class RawPowder extends Item {
     private final Supplier<MobEffectInstance> mobEffect;
     private final int coolDown;
+    private final DustParticleOptions dustColor;
 
-    public RawPowder(Properties pProperties, Supplier<MobEffectInstance> mobEffect, int coolDown) {
+    public RawPowder(Properties pProperties, Supplier<MobEffectInstance> mobEffect, int coolDown, DustParticleOptions dustColor) {
         super(pProperties);
         this.mobEffect = mobEffect;
         this.coolDown = coolDown;
+        this.dustColor = dustColor;
     }
 
     @Override
@@ -39,12 +41,8 @@ public class RawPowder extends Item {
         if (!pLevel.isClientSide()) {
             ServerLevel serverLevel = (ServerLevel) pLevel;
 
-            DustParticleOptions purpleDust = new DustParticleOptions(
-                    new Vector3f(0.4549f, 0.2667f, 0.7686f), 1.0f
-            );
-
             for (int i = 0; i < 20; i++) { // todo test multiplayer
-                serverLevel.sendParticles(purpleDust,
+                serverLevel.sendParticles(this.dustColor,
                         pLivingEntity.getX(), pLivingEntity.getY() + 1.5D, pLivingEntity.getZ(),
                         1, 0.2, 0.2, 0.2, 0.01);
             }
