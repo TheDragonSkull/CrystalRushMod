@@ -1,5 +1,6 @@
 package net.thedragonskull.crystalmod.effect;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.InstantenousMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -8,6 +9,8 @@ import net.minecraft.world.entity.LivingEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 public class RebalanceEffect extends InstantenousMobEffect {
 
@@ -18,35 +21,33 @@ public class RebalanceEffect extends InstantenousMobEffect {
     @Override
     public void applyEffectTick(LivingEntity entity, int pAmplifier) {
         if (entity.level().isClientSide()) return;
+        RandomSource randomSource = RandomSource.create();
 
-        Collection<MobEffectInstance> activeEffects = new ArrayList<>(entity.getActiveEffects());
+        List<MobEffectInstance> activeEffects = new ArrayList<>(entity.getActiveEffects());
 
-        for (MobEffectInstance effectInstance : activeEffects) {
-            MobEffect effect = effectInstance.getEffect();
+        MobEffectInstance effectInstance = activeEffects.get(randomSource.nextInt(activeEffects.size()));
+        MobEffect effect = effectInstance.getEffect();
 
-            if (effect.isInstantenous()) continue;
-            if (effect.getCategory() == MobEffectCategory.NEUTRAL) continue;
+        if (effect.isInstantenous()) return;
+        if (effect.getCategory() == MobEffectCategory.NEUTRAL) return;
 
-            boolean isBeneficial = effect.getCategory() == MobEffectCategory.BENEFICIAL;
-            int originalAmplifier = effectInstance.getAmplifier();
-            int originalDuration = effectInstance.getDuration();
+        boolean isBeneficial = effect.getCategory() == MobEffectCategory.BENEFICIAL;
+        int originalAmplifier = effectInstance.getAmplifier();
+        int originalDuration = effectInstance.getDuration();
 
-            if (isBeneficial) {
-                if (originalAmplifier < 4) {
-                    int newAmplifier = originalAmplifier + 1;
-                    int newDuration = Math.max(1, (int)(originalDuration * 0.5f));
-
-                    entity.removeEffect(effect);
-                    entity.addEffect(new MobEffectInstance(effect, newDuration, newAmplifier, true, true, true));
-                }
-
-            } else if (originalAmplifier > 0) {
-                int newAmplifier = originalAmplifier - 1;
-                int newDuration = Math.max(1, (int)(originalDuration * 1.5f));
+        if (isBeneficial) {
+            if (originalAmplifier < 4) {
+                int newAmplifier = originalAmplifier + 1;
 
                 entity.removeEffect(effect);
-                entity.addEffect(new MobEffectInstance(effect, newDuration, newAmplifier, true, true, true));
+                entity.addEffect(new MobEffectInstance(effect, originalDuration, newAmplifier, effectInstance.isAmbient(), effectInstance.isVisible(), effectInstance.showIcon()));
             }
+
+        } else if (originalAmplifier > 0) {
+            int newAmplifier = originalAmplifier - 1;
+
+            entity.removeEffect(effect);
+            entity.addEffect(new MobEffectInstance(effect, originalDuration, newAmplifier, true, true, true));
         }
 
     }

@@ -15,6 +15,7 @@ import java.util.List;
 
 public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SULFUR_DEPOSIT_PLACED_KEY = registerKey("sulfur_deposit_placed");
+    public static final ResourceKey<PlacedFeature> CAVANSITE_GEODE_PLACED_KEY = registerKey("cavansite_geode_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -31,6 +32,10 @@ public class ModPlacedFeatures {
                         BiomeFilter.biome()
                 ));
 
+        register(context, CAVANSITE_GEODE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.CAVANSITE_GEODE_KEY), List.of(
+                RarityFilter.onAverageOnceEvery(50), InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.absolute(50)),
+                BiomeFilter.biome()));
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
