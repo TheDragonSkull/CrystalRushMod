@@ -1,4 +1,4 @@
-package net.thedragonskull.crystalmod.world;
+package net.thedragonskull.crystalmod.world.feature;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -15,6 +15,8 @@ import java.util.List;
 
 public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SULFUR_DEPOSIT_PLACED_KEY = registerKey("sulfur_deposit_placed");
+    public static final ResourceKey<PlacedFeature> MALACHITE_CLUSTER_PLACED = registerKey("malachite_cluster_placed");
+
     public static final ResourceKey<PlacedFeature> CAVANSITE_GEODE_PLACED_KEY = registerKey("cavansite_geode_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
@@ -31,6 +33,18 @@ public class ModPlacedFeatures {
                         ),
                         BiomeFilter.biome()
                 ));
+
+        register(context, MALACHITE_CLUSTER_PLACED,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.MALACHITE_CLUSTER_KEY),
+                List.of(
+                        CountPlacement.of(300),
+                        HeightRangePlacement.uniform(
+                                VerticalAnchor.bottom(),
+                                VerticalAnchor.top()
+                        ),
+                        BiomeFilter.biome()
+                )
+        );
 
         register(context, CAVANSITE_GEODE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.CAVANSITE_GEODE_KEY), List.of(
                 RarityFilter.onAverageOnceEvery(50), InSquarePlacement.spread(),

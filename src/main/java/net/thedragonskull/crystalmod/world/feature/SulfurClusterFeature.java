@@ -1,4 +1,4 @@
-package net.thedragonskull.crystalmod.world;
+package net.thedragonskull.crystalmod.world.feature;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;

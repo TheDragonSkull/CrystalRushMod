@@ -1,4 +1,4 @@
-package net.thedragonskull.crystalmod.world;
+package net.thedragonskull.crystalmod.world.feature;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -14,6 +14,10 @@ public class ModFeatures {
     public static final RegistryObject<Feature<SimpleBlockConfiguration>> SULFUR_CLUSTER_FEATURE =
             FEATURES.register("sulfur_cluster_feature",
                     () -> new SulfurClusterFeature(SimpleBlockConfiguration.CODEC));
+
+    public static final RegistryObject<Feature<SimpleBlockConfiguration>> MALACHITE_CLUSTER_FEATURE =
+            FEATURES.register("malachite_cluster_feature",
+                    () -> new MalachiteClusterFeature(SimpleBlockConfiguration.CODEC));
 
     public static void register(IEventBus eventBus) {
         FEATURES.register(eventBus);

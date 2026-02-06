@@ -8,8 +8,8 @@ import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.thedragonskull.crystalmod.CrystalMod;
 import net.thedragonskull.crystalmod.world.ModBiomeModifiers;
-import net.thedragonskull.crystalmod.world.ModConfiguredFeatures;
-import net.thedragonskull.crystalmod.world.ModPlacedFeatures;
+import net.thedragonskull.crystalmod.world.feature.ModConfiguredFeatures;
+import net.thedragonskull.crystalmod.world.feature.ModPlacedFeatures;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;

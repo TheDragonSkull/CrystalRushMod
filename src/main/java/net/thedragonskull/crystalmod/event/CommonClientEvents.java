@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.thedragonskull.crystalmod.block.custom.SulfurGasBlock;
 
 @Mod.EventBusSubscriber(modid = "crystalmod", value = Dist.CLIENT)
-public class CommonForgeEvents {
+public class CommonClientEvents {
 
     @SubscribeEvent
     public static void onFogRender(ViewportEvent.RenderFog event) {

@@ -1,4 +1,4 @@
-package net.thedragonskull.crystalmod.world;
+package net.thedragonskull.crystalmod.world.feature;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -23,6 +23,8 @@ import java.util.List;
 
 public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_DEPOSIT_KEY = registerKey("sulfur_deposit");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MALACHITE_CLUSTER_KEY = registerKey("malachite_cluster");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> CAVANSITE_GEODE_KEY = registerKey("cavansite_geode");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
@@ -30,6 +32,11 @@ public class ModConfiguredFeatures {
         register(context, SULFUR_DEPOSIT_KEY,
                 ModFeatures.SULFUR_CLUSTER_FEATURE.get(),
                 new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SULFUR_CLUSTER.get()))
+        );
+
+        register(context, MALACHITE_CLUSTER_KEY,
+                ModFeatures.MALACHITE_CLUSTER_FEATURE.get(),
+                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SULFUR_CLUSTER.get())) //todo: change block
         );
 
         register(context, CAVANSITE_GEODE_KEY, Feature.GEODE,

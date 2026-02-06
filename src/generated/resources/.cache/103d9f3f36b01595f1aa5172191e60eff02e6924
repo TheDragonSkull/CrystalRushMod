@@ -1,7 +1,10 @@
-// 1.20.1	2026-02-05T15:14:29.982193	Registries
+// 1.20.1	2026-02-06T11:33:24.778225	Registries
 55edee4c0d5a5ad18ae9c2baf50f07541975abb4 data/crystalmod/forge/biome_modifier/add_cavansite_geode.json
+02c2ab9da069600e080710e145485a20df661c83 data/crystalmod/forge/biome_modifier/add_malachite_cluster.json
 d95adaeca440c65728cf30c014b10f5a859a06ca data/crystalmod/forge/biome_modifier/add_sulfur_deposit.json
 29920a04a6cbdb2f81d7bb17cb79ef0991a01fa8 data/crystalmod/worldgen/configured_feature/cavansite_geode.json
+f8cf41ae8c551c69cee24ec7758d18c309d10157 data/crystalmod/worldgen/configured_feature/malachite_cluster.json
 291b20be17cece07df13f22f156bbff9e769762c data/crystalmod/worldgen/configured_feature/sulfur_deposit.json
 67bf76a267f7b0bc4b449b8a223b34edee1debe4 data/crystalmod/worldgen/placed_feature/cavansite_geode_placed.json
+c3270060acd24915bc56fc00b363554e1cc71c6d data/crystalmod/worldgen/placed_feature/malachite_cluster_placed.json
 09c0f5e1851da532503f529d3b1a892d60d537ab data/crystalmod/worldgen/placed_feature/sulfur_deposit_placed.json

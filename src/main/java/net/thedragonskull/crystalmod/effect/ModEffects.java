@@ -12,10 +12,10 @@ public class ModEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS =
             DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, CrystalMod.MOD_ID);
 
-    public static final RegistryObject<MobEffect> REBALANCE_EFFECT = MOB_EFFECTS.register("thedragon_rebalance",
+    public static final RegistryObject<MobEffect> REBALANCE_EFFECT = MOB_EFFECTS.register("rebalance_effect",
             () -> new RebalanceEffect(MobEffectCategory.BENEFICIAL, 0x7444c4));
 
-    public static final RegistryObject<MobEffect> EXCHANGE_EFFECT = MOB_EFFECTS.register("thedragon_exchange",
+    public static final RegistryObject<MobEffect> EXCHANGE_EFFECT = MOB_EFFECTS.register("exchange_effect",
             () -> new ExchangeEffect(MobEffectCategory.NEUTRAL, 0x5cccfc));
 
     public static void register(IEventBus eventBus) {

@@ -1,0 +1,15 @@
+{
+  "type": "crystalmod:malachite_cluster_feature",
+  "config": {
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "crystalmod:sulfur_cluster",
+        "Properties": {
+          "facing": "up",
+          "waterlogged": "false"
+        }
+      }
+    }
+  }
+}
