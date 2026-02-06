@@ -36,7 +36,7 @@ public class ModConfiguredFeatures {
 
         register(context, MALACHITE_CLUSTER_KEY,
                 ModFeatures.MALACHITE_CLUSTER_FEATURE.get(),
-                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SULFUR_CLUSTER.get())) //todo: change block
+                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.MALACHITE_CLUSTER.get()))
         );
 
         register(context, CAVANSITE_GEODE_KEY, Feature.GEODE,

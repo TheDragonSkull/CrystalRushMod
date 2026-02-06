@@ -37,7 +37,7 @@ public class ModPlacedFeatures {
         register(context, MALACHITE_CLUSTER_PLACED,
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.MALACHITE_CLUSTER_KEY),
                 List.of(
-                        CountPlacement.of(300),
+                        CountPlacement.of(256),
                         HeightRangePlacement.uniform(
                                 VerticalAnchor.bottom(),
                                 VerticalAnchor.top()

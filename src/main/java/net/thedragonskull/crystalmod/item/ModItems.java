@@ -46,6 +46,9 @@ public class ModItems {
     public static final RegistryObject<Item> SULFUR_SHARD = ITEMS.register("sulfur_shard",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> MALACHITE_CHUNK = ITEMS.register("malachite_chunk",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> SULFUR_DIOXIDE_BOTTLE = ITEMS.register("sulfur_dioxide_bottle",
             () -> new SulfurDioxideBottle(new Item.Properties()));
 
