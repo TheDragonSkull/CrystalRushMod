@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.thedragonskull.crystalmod.block.ModBlocks;
+import net.thedragonskull.crystalmod.util.BlockSearchUtil;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
@@ -32,11 +33,11 @@ public class SulfuricBasaltBlock extends Block {
         // Only below Y=0
         if (pos.getY() >= 0) return;
 
-        // Close lava (<= 3)
-        if (!hasNearby(level, pos, Blocks.LAVA, 3)) return;
+        // Close to lava (<= 3)
+        if (!BlockSearchUtil.hasNearbyBlock(level, pos, Blocks.LAVA, 3)) return;
 
-        // Close water (<= 10)
-        if (hasNearby(level, pos, Blocks.WATER, 3)) return;
+        // Not close to water (<= 3)
+        if (BlockSearchUtil.hasNearbyBlock(level, pos, Blocks.WATER, 3)) return;
 
         if (random.nextInt(20) != 0) return;
 
@@ -49,21 +50,6 @@ public class SulfuricBasaltBlock extends Block {
                 .setValue(AmethystClusterBlock.FACING, direction);
 
         level.setBlockAndUpdate(targetPos, sulfur);
-    }
-
-    private boolean hasNearby(LevelAccessor level, BlockPos center, Block targetBlock, int radius) {
-        BlockPos.MutableBlockPos check = new BlockPos.MutableBlockPos();
-        for (int dx = -radius; dx <= radius; dx++) {
-            for (int dy = -radius; dy <= radius; dy++) {
-                for (int dz = -radius; dz <= radius; dz++) {
-                    check.set(center.getX() + dx, center.getY() + dy, center.getZ() + dz);
-                    if (level.getBlockState(check).is(targetBlock)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
 }
