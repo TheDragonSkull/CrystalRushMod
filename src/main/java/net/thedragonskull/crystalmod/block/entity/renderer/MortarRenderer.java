@@ -67,6 +67,10 @@ public class MortarRenderer extends GeoBlockRenderer<MortarBE> {
         poseStack.scale(0.25f, 0.25f, 0.25f);
         poseStack.mulPose(Axis.XP.rotationDegrees(90));
 
+        if (stack.is(ModItems.MALACHITE_CHUNK.get())) {
+            poseStack.scale(1.45f, 1.45f, 1.45f);
+        }
+
         Minecraft.getInstance().getItemRenderer().renderStatic(
                 stack,
                 ItemDisplayContext.FIXED,

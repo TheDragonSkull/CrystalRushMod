@@ -6,6 +6,7 @@
   "item.crystalmod.raw_sulfur_powder": "Raw Sulfur Powder",
   "item.crystalmod.sulfur_dioxide_bottle": "Sulfur Dioxide Bottle",
   "item.crystalmod.malachite_chunk": "Malachite Chunk",
+  "item.crystalmod.raw_malachite_powder": "Raw Malachite Powder",
 
   "block.crystalmod.mortar": "Mortar and Pestle",
 
@@ -22,6 +23,7 @@
   "block.crystalmod.sulfur_gas": "Sulfur Dioxide",
 
   "block.crystalmod.malachite_cluster": "Malachite Cluster",
+  "block.crystalmod.malachite_block": "Malachite Block",
 
   "effect.crystalmod.rebalance_effect": "Rebalance",
   "effect.crystalmod.exchange_effect": "Life Exchange",

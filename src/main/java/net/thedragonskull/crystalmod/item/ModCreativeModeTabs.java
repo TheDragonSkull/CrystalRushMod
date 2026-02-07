@@ -44,7 +44,9 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.SULFUR_DIOXIDE_BOTTLE.get());
 
                         pOutput.accept(ModBlocks.MALACHITE_CLUSTER.get());
+                        pOutput.accept(ModBlocks.MALACHITE_BLOCK.get());
                         pOutput.accept(ModItems.MALACHITE_CHUNK.get());
+                        pOutput.accept(ModItems.RAW_MALACHITE_POWDER.get());
 
                     })
                     .build());

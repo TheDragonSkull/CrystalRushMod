@@ -39,6 +39,9 @@ public class ModItems {
     public static final RegistryObject<Item> RAW_SULFUR_POWDER = ITEMS.register("raw_sulfur_powder",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> RAW_MALACHITE_POWDER = ITEMS.register("raw_malachite_powder",
+            () -> new Item(new Item.Properties()));
+
 
     public static final RegistryObject<Item> CAVANSITE_SHARD = ITEMS.register("cavansite_shard",
             () -> new Item(new Item.Properties()));

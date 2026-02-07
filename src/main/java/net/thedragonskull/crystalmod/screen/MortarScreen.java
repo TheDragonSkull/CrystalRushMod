@@ -50,7 +50,10 @@ public class MortarScreen extends AbstractContainerScreen<MortarMenu> {
 
             } else if (stack.is(ModItems.SULFUR_SHARD.get())) {
                 vOffset = 22;
-            } //todo: add malachite
+
+            } else if (stack.is(ModItems.MALACHITE_CHUNK.get())) {
+                vOffset = 33;
+            }
 
             guiGraphics.blit(TEXTURE, x + 101, y + 58, 176, vOffset, 12, menu.getScaledProgress());
         }

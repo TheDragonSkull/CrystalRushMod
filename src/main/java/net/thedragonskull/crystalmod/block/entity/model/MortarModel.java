@@ -27,6 +27,9 @@ public class MortarModel extends GeoModel<MortarBE> {
         } else if (slotStack.is(ModItems.RAW_SULFUR_POWDER.get())) {
             return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar/mortar_sulfur.png");
 
+        } else if (slotStack.is(ModItems.RAW_MALACHITE_POWDER.get())) {
+            return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar/mortar_malachite.png");
+
         } else {
             return new ResourceLocation(CrystalMod.MOD_ID, "textures/block/mortar/mortar.png");
         }

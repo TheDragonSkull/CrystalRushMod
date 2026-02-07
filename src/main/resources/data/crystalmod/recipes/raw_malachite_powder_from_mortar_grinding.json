@@ -1,0 +1,12 @@
+{
+  "type": "crystalmod:mortar_grinding",
+  "ingredients": [
+    {
+      "item": "crystalmod:malachite_chunk"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "crystalmod:raw_malachite_powder"
+  }
+}

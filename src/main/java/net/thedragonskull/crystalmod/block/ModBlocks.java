@@ -73,8 +73,11 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> MALACHITE_CLUSTER = registerBlock("malachite_cluster",
             () -> new AmethystClusterBlock(5, 3, BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_NYLIUM).forceSolidOn()
-                    .noOcclusion().randomTicks().sound(SoundType.GLASS).strength(1.5F)
+                    .noOcclusion().randomTicks().sound(SoundType.DEEPSLATE).strength(1.5F)
                     .lightLevel((state) -> 1).pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> MALACHITE_BLOCK = registerBlock("malachite_block",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WARPED_NYLIUM).strength(2.5F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
 
 
         private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
